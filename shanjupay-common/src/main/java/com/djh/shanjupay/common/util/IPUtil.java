@@ -4,6 +4,12 @@ import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+/**
+ * ip工具类
+ *
+ * @author MrMyHui
+ * @date 2021/03/26
+ */
 public class IPUtil {
 
     public static String getIpAddr(HttpServletRequest request) {
