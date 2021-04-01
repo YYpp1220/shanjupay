@@ -21,6 +21,7 @@
         <module>shanjupay-pojo</module>
         <module>shanjupay-auth</module>
         <module>shanjupay-gateway</module>
+        <module>shanjupay-merchant</module>
     </modules>
 
     <!--统一版本依赖控制-->
@@ -57,7 +58,7 @@
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>2.2.1.RELEASE</version>
+                <version>2.1.0.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
