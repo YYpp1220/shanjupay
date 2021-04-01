@@ -7,6 +7,12 @@ import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * 字符串工具类
+ *
+ * @author MrMyHui
+ * @date 2021/04/01
+ */
 public class StringUtil {
 
 	/** yyyy-MM-dd日期格式 */

@@ -10,6 +10,12 @@ import java.security.*;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
+/**
+ * rsa签名工具类
+ *
+ * @author MrMyHui
+ * @date 2021/04/01
+ */
 public class RSAUtil {
 
     public static final String  SIGN_ALGORITHMS = "SHA1WithRSA";
@@ -144,7 +150,8 @@ public class RSAUtil {
     //生成密钥对
     public static KeyPair getKeyPair() throws Exception {
         KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
-        keyGen.initialize(512); //可以理解为：加密后的密文长度，实际原文要小些 越大 加密解密越慢
+        //可以理解为：加密后的密文长度，实际原文要小些 越大 加密解密越慢
+        keyGen.initialize(512);
         KeyPair keyPair = keyGen.generateKeyPair();
         return keyPair;
     }
@@ -185,7 +192,6 @@ public class RSAUtil {
        }
 
 
-
         System.out.println("-----------------存管向p2p返回数据--------------------- ");
         String signature1 = RSAUtil.sign(content, depository_privateKey, "utf-8");
         System.out.println("生成签名,原文为：" + content);
@@ -195,13 +201,6 @@ public class RSAUtil {
             System.out.println("验证签名失败！");
         }
 
-
-
-
-
-
-
     }
-
 
 }

@@ -3,6 +3,12 @@ package com.djh.shanjupay.common.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * 手机校验工具类
+ *
+ * @author MrMyHui
+ * @date 2021/04/01
+ */
 public class PhoneUtil {
     /**
      * 校验用户手机号是否合法

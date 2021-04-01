@@ -6,8 +6,20 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+/**
+ * 解析url工具类
+ *
+ * @author MrMyHui
+ * @date 2021/04/01
+ */
 public class ParseURLPairUtil {
 
+    /**
+     * 解析url
+     *
+     * @param o o
+     * @return {@link String}* @throws Exception 异常
+     */
     public static String parseURLPair(Object o) throws Exception{
         Class<? extends Object> c = o.getClass();
         Field[] fields = c.getDeclaredFields();
@@ -16,8 +28,9 @@ public class ParseURLPairUtil {
             field.setAccessible(true);
             String name = field.getName();
             Object value = field.get(o);
-            if(value != null)
+            if(value != null) {
                 map.put(name, value);
+            }
         }
         Set<Map.Entry<String, Object>> set = map.entrySet();
         Iterator<Map.Entry<String, Object>> it = set.iterator();

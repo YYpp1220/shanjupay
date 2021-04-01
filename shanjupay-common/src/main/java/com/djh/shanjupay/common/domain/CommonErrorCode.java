@@ -3,10 +3,14 @@ package com.djh.shanjupay.common.domain;
 
 
 /**
+ * 常见的错误代码
  * 异常编码 0成功、-1熔断、 -2 标准参数校验不通过 -3会话超时
  * 前两位:服务标识
  * 中间两位:模块标识
  * 后两位:异常标识
+ *
+ * @author MrMyHui
+ * @date 2021/04/01
  */
 public enum CommonErrorCode implements ErrorCode {
 	

@@ -46,6 +46,7 @@ public class IPUtil {
                 } catch (UnknownHostException e) {
                     e.printStackTrace();
                 }
+                assert inet != null;
                 ip = inet.getHostAddress();
             }
         }

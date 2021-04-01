@@ -34,16 +34,35 @@ public class DateUtil {
 	}
 
 
+	/**
+	 * 日期时间
+	 *
+	 * @param date 日期
+	 * @return {@link String}
+	 */
 	public static String toDateTime(LocalDateTime date) {
 		return toDateTime(date, YYYY_MM_DD_HH_MM_SS);
 	}
 
+	/**
+	 * 日期时间
+	 *
+	 * @param dateTime 日期时间
+	 * @param pattern  模式
+	 * @return {@link String}
+	 */
 	public static String toDateTime(LocalDateTime dateTime, String pattern) {
 		return dateTime.format(DateTimeFormatter.ofPattern(pattern, Locale.SIMPLIFIED_CHINESE));
 	}
 
 
-
+	/**
+	 * 日期文本
+	 *
+	 * @param date    日期
+	 * @param pattern 模式
+	 * @return {@link String}
+	 */
 	public static String toDateText(LocalDate date, String pattern) {
 		if (date == null || pattern == null) {
 			return null;
@@ -53,12 +72,10 @@ public class DateUtil {
 
 	/**
 	 * 从给定的date，加上hour小时 求指定date时间后hour小时的时间
-	 * 
-	 * @param date
-	 *            指定的时间
-	 * @param hour
-	 *            多少小时后
-	 * @return
+	 *
+	 * @param date 指定的时间
+	 * @param hour 多少小时后
+	 * @return {@link Date}
 	 */
 	public static Date addExtraHour(Date date, int hour) {
 		Calendar cal = Calendar.getInstance();
@@ -71,10 +88,10 @@ public class DateUtil {
 
 	/**
 	 * 从给定的date，加上increase天
-	 * 
-	 * @param date
-	 * @param increase
-	 * @return
+	 *
+	 * @param date     日期
+	 * @param increase 增加
+	 * @return {@link Date}
 	 */
 	public static Date increaseDay2Date(Date date, int increase) {
 		Calendar cal = Calendar.getInstance();
@@ -87,26 +104,29 @@ public class DateUtil {
 
 	/**
 	 * 把字符串日期默认转换为yyyy-mm-dd格式的Data对象
-	 * 
-	 * @param strDate
-	 * @return
+	 *
+	 * @param strDate str日期
+	 * @param format  格式
+	 * @return {@link Date}
 	 */
 	public static Date format(String strDate, String format) {
 		Date d = null;
-		if (null == strDate || "".equals(strDate))
+		if (null == strDate || "".equals(strDate)) {
 			return null;
-		else
+		} else {
 			try {
 				d = getFormatter(format).parse(strDate);
 			} catch (ParseException pex) {
 				return null;
 			}
+		}
 		return d;
 	}
 
 	/**
 	 * 获取一个简单的日期格式化对象
-	 * 
+	 *
+	 * @param parttern parttern
 	 * @return 一个简单的日期格式化对象
 	 */
 	private static SimpleDateFormat getFormatter(String parttern) {
@@ -115,12 +135,10 @@ public class DateUtil {
 
 	/**
 	 * 获取month所在月的所有天
-	 * 
-	 * @param month
-	 *            要查询的日期（如果为null 则默认为当前月）
-	 * @param dateFormat
-	 *            返回日期的格式（如果为null 则返回yyyy-MM-dd 格式结果）
-	 * @return
+	 *
+	 * @param month      要查询的日期（如果为null 则默认为当前月）
+	 * @param dateFormat 返回日期的格式（如果为null 则返回yyyy-MM-dd 格式结果）
+	 * @return {@link List<String>}
 	 */
 	public static List<String> getAllDaysOfMonthInString(Date month, DateFormat dateFormat) {
 		List<String> rs = new ArrayList<String>();
@@ -132,9 +150,11 @@ public class DateUtil {
 		if (null != month) {
 			cad.setTime(month);
 		}
-		int day_month = cad.getActualMaximum(Calendar.DAY_OF_MONTH); // 获取当月天数
+		// 获取当月天数
+		int day_month = cad.getActualMaximum(Calendar.DAY_OF_MONTH);
 		for (int i = 0; i < day_month; i++) {
 			cad.set(Calendar.DAY_OF_MONTH, i + 1);
+			assert df != null;
 			rs.add(df.format(cad.getTime()));
 
 		}
@@ -165,12 +185,11 @@ public class DateUtil {
 
 	/**
 	 * 获取指定日期区间所有天
-	 * 
-	 * @param begin
-	 * @param end
-	 * @param dateFormat
-	 *            (如果为null 则返回yyyy-MM-dd格式的日期)
-	 * @return
+	 *
+	 * @param dateFormat (如果为null 则返回yyyy-MM-dd格式的日期)
+	 * @param begin      开始
+	 * @param end        结束
+	 * @return {@link List<String>}
 	 */
 	public static List<String> getSpecifyDaysOfMonthInString(Date begin, Date end, DateFormat dateFormat) {
 		DateFormat df = null;
@@ -179,17 +198,19 @@ public class DateUtil {
 		}
 		List<String> rs = new ArrayList<String>();
 		List<Date> tmplist = getSpecifyDaysOfMonth(begin, end);
-		for (Date date : tmplist)
+		for (Date date : tmplist) {
+			assert df != null;
 			rs.add(df.format(date));
+		}
 		return rs;
 	}
 
 	/**
 	 * 获取指定日期区间所有天
-	 * 
-	 * @param begin
-	 * @param end
-	 * @return
+	 *
+	 * @param begin 开始
+	 * @param end   结束
+	 * @return {@link List<Date>}
 	 */
 	public static List<Date> getSpecifyDaysOfMonth(Date begin, Date end) {
 		List<Date> rs = new ArrayList<Date>();
@@ -197,16 +218,19 @@ public class DateUtil {
 		int day_month = -1;
 		if (null == begin) {// 设置开始日期为指定日期
 			// day_month = cad.getActualMaximum(Calendar.DAY_OF_MONTH); // 获取当月天数
-			cad.set(Calendar.DAY_OF_MONTH, 1);// 设置开始日期为当前月的第一天
+			// 设置开始日期为当前月的第一天
+			cad.set(Calendar.DAY_OF_MONTH, 1);
 			begin = cad.getTime();
 		}
 		cad.setTime(begin);
 		if (null == end) {// 如果结束日期为空 ，设置结束日期为下月的第一天
-			day_month = cad.getActualMaximum(Calendar.DAY_OF_MONTH); // 获取当月天数
+			// 获取当月天数
+			day_month = cad.getActualMaximum(Calendar.DAY_OF_MONTH);
 			cad.set(Calendar.DAY_OF_MONTH, day_month + 1);
 			end = cad.getTime();
 		}
-		cad.set(Calendar.DAY_OF_MONTH, 1);// 设置开始日期为当前月的第一天
+		// 设置开始日期为当前月的第一天
+		cad.set(Calendar.DAY_OF_MONTH, 1);
 		Date tmp = begin;
 		int i = 1;
 		while (true) {
@@ -248,15 +272,14 @@ public class DateUtil {
 
 	/**
 	 * 获得指定日期的前一天
-	 * 
-	 * @param specifiedDay
-	 *            YYYY_MM_DD_HH_MM_SS 格式
-	 * @param formatStr
-	 *            日期类型
-	 * @return
+	 *
+	 * @param specifiedDay YYYY_MM_DD_HH_MM_SS 格式
+	 * @param formatStr    日期类型
+	 * @return {@link String}
 	 */
-	public static String getSpecifiedDayBefore(String specifiedDay, String formatStr) {// 可以用new
-																						// Date().toLocalString()传递参数
+	public static String getSpecifiedDayBefore(String specifiedDay, String formatStr) {
+		// 可以用new
+		// Date().toLocalString()传递参数
 		Calendar c = Calendar.getInstance();
 		Date date = null;
 		try {
@@ -274,12 +297,10 @@ public class DateUtil {
 
 	/**
 	 * 获得指定日期的后一天
-	 * 
-	 * @param specifiedDay
-	 *            YYYY_MM_DD_HH_MM_SS 格式
-	 * @param formatStr
-	 *            日期类型
-	 * @return
+	 *
+	 * @param specifiedDay YYYY_MM_DD_HH_MM_SS 格式
+	 * @param formatStr    日期类型
+	 * @return {@link String}
 	 */
 	public static String getSpecifiedDayAfter(String specifiedDay, String formatStr) {
 		Calendar c = Calendar.getInstance();
@@ -289,6 +310,7 @@ public class DateUtil {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		assert date != null;
 		c.setTime(date);
 		int day = c.get(Calendar.DATE);
 		c.set(Calendar.DATE, day + 1);
@@ -299,10 +321,10 @@ public class DateUtil {
 
 	/**
 	 * 获取本周第一天的日期
-	 * 
-	 * @return
+	 *
+	 * @return {@link String}
 	 */
-	public static final String getWeekFirstDay() {
+	public static String getWeekFirstDay() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar cal = Calendar.getInstance();
 		int day_of_week = cal.get(Calendar.DAY_OF_WEEK) - 2;
@@ -312,10 +334,10 @@ public class DateUtil {
 
 	/**
 	 * 获取当前月的第一天
-	 * 
-	 * @return
+	 *
+	 * @return {@link String}
 	 */
-	public static final String getCurrentMonthFirstDay() {
+	public static String getCurrentMonthFirstDay() {
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		// 当前月的第一天
@@ -326,60 +348,82 @@ public class DateUtil {
 
 	/**
 	 * 获取昨天开始时间
-	 * 
-	 * @return
+	 *
+	 * @return {@link String}
 	 */
-	public static final String getYesterdayStart() {
+	public static String getYesterdayStart() {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DATE, -1);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		return sdf.format(cal.getTime());
 	}
 
-	public static final String getYesterdayEnd() {
+	/**
+	 * 获取昨天结束时间
+	 *
+	 * @return {@link String}
+	 */
+	public static String getYesterdayEnd() {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DATE, -1);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		return sdf.format(cal.getTime()) + " 23:59:59";
 	}
 
-	public static final String getCurrDayStart() {
+	/**
+	 * 获取一天开始时间
+	 *
+	 * @return {@link String}
+	 */
+	public static String getCurrDayStart() {
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		return sdf.format(cal.getTime());
 	}
 
 	/**
-	 * 
 	 * 功能：获取指定月份的第一天<br/>
 	 *
+	 * @param month 月
+	 * @return {@link String}
+	 * @throws ParseException 解析异常
 	 */
-	public static final String getStartDayWithMonth(String month) throws ParseException {
+	public static String getStartDayWithMonth(String month) throws ParseException {
 		Calendar calendar = new GregorianCalendar();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat mf = new SimpleDateFormat("yyyy-MM");
 		Date date = mf.parse(month);
 		calendar.setTime(date);
-		calendar.add(Calendar.DATE, 0);// 因为格式化时默认了DATE为本月第一天所以此处为0
+		// 因为格式化时默认了DATE为本月第一天所以此处为0
+		calendar.add(Calendar.DATE, 0);
 		return sdf.format(calendar.getTime());
 	}
 
 	/**
-	 * 
 	 * 功能：获取指定月份的最后一天<br/>
 	 *
+	 * @param month 月
+	 * @return {@link String}
+	 * @throws ParseException 解析异常
 	 */
-	public static final String getEndDayWithMonth(String month) throws ParseException {
+	public static String getEndDayWithMonth(String month) throws ParseException {
 		Calendar calendar = new GregorianCalendar();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat mf = new SimpleDateFormat("yyyy-MM");
 		Date date = mf.parse(month);
 		calendar.setTime(date);
-		calendar.roll(Calendar.DATE, -1);// api解释roll()：向指定日历字段添加指定（有符号的）时间量，不更改更大的字段
+		// api解释roll()：向指定日历字段添加指定（有符号的）时间量，不更改更大的字段
+		calendar.roll(Calendar.DATE, -1);
 		return sdf.format(calendar.getTime());
 	}
 
-	public static final String formatYearMonthDay(String dateStr) throws ParseException {
+	/**
+	 * 格式年月日
+	 *
+	 * @param dateStr str日期
+	 * @return {@link String}* @throws ParseException 解析异常
+	 */
+	public static String formatYearMonthDay(String dateStr) throws ParseException {
 		if (StringUtil.isNotBlank(dateStr)) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = sdf.parse(dateStr);
@@ -390,13 +434,14 @@ public class DateUtil {
 	}
 
 	/**
-	 * 
 	 * 功能：<br/>
 	 * 根据时间 yyyy-MM-dd 获取该日期是本月第几周
 	 *
+	 * @param dateStr str日期
+	 * @return int
+	 * @throws ParseException 解析异常
 	 */
-	public static final int getWeekIndexOfMonth(String dateStr) throws ParseException {
-
+	public static int getWeekIndexOfMonth(String dateStr) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = sdf.parse(dateStr);
 		Calendar calendar = Calendar.getInstance();
@@ -408,8 +453,10 @@ public class DateUtil {
 	/**
 	 * 获取当前时间到指定时间距离多少秒 功能：<br/>
 	 *
+	 * @param designationTime 指定的时间
+	 * @return int
 	 */
-	public static final int getSecondToDesignationTime(String designationTime) {
+	public static int getSecondToDesignationTime(String designationTime) {
 		// 24小时制
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date toDate;
@@ -423,17 +470,32 @@ public class DateUtil {
 		return 0;
 	}
 
-	public static final int getYear() {
+	/**
+	 * 获得年
+	 *
+	 * @return int
+	 */
+	public static int getYear() {
 		Calendar cal = Calendar.getInstance();
 		return cal.get(cal.YEAR);
 	}
 
-	public static final int getMonth() {
+	/**
+	 * 获得月
+	 *
+	 * @return int
+	 */
+	public static int getMonth() {
 		Calendar cal = Calendar.getInstance();
 		return cal.get(cal.MONTH)+1;
 	}
 
-	public static final int getDay() {
+	/**
+	 * 得到天
+	 *
+	 * @return int
+	 */
+	public static int getDay() {
 		Calendar cal = Calendar.getInstance();
 		return cal.get(cal.DATE);
 	}

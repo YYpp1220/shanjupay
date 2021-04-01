@@ -4,7 +4,10 @@ import java.math.BigDecimal;
 
 /**
  * com.util.AmountUtils
- * @description  金额元分之间转换工具类
+ *
+ * @author MrMyHui
+ * @description 金额元分之间转换工具类
+ * @date 2021/04/01
  */
 public class AmountUtil {
 
@@ -14,9 +17,10 @@ public class AmountUtil {
     /**
      * 将分为单位的转换为元并返回金额格式的字符串 （除100）
      * 比如：100000转换为1,000.00   100转化为1.00 10转换为0.1   1转换为0.01
-     * @param amount
-     * @return
-     * @throws Exception
+     *
+     * @param amount 量
+     * @return {@link String}
+     * @throws Exception 异常
      */
     public static String changeF2Y(Long amount) throws Exception{
         if(!amount.toString().matches(CURRENCY_FEN_REGEX)) {
@@ -54,22 +58,23 @@ public class AmountUtil {
     /**
      * 将分为单位的转换为元 （除100）
      * 比如：1000000转换为10000   100最后转化为1 10转换为0.1 1转换为0.01
-     * @param amount
-     * @return
-     * @throws Exception
+     *
+     * @param amount 量
+     * @return {@link String}
+     * @throws Exception 异常
      */
     public static String changeF2Y(String amount) throws Exception{
         if(!amount.matches(CURRENCY_FEN_REGEX)) {
             throw new Exception("金额格式有误");
         }
-        return BigDecimal.valueOf(Long.valueOf(amount)).divide(new BigDecimal(100)).toString();
+        return BigDecimal.valueOf(Long.parseLong(amount)).divide(new BigDecimal(100)).toString();
     }
 
     /**
      * 将元为单位的转换为分 （乘100）
      *
-     * @param amount
-     * @return
+     * @param amount 量
+     * @return {@link String}
      */
     public static String changeY2F(Long amount){
         return BigDecimal.valueOf(amount).multiply(new BigDecimal(100)).toString();
@@ -78,14 +83,16 @@ public class AmountUtil {
     /**
      * 将元为单位的转换为分 替换小数点，支持以逗号区分的金额
      * 比如：100￥转换为10000  1转换为100  1,000.00转换为100000
-     * @param amount
-     * @return
+     *
+     * @param amount 量
+     * @return {@link String}
      */
     public static String changeY2F(String amount){
-        String currency =  amount.replaceAll("\\$|\\￥|\\,", "");  //处理包含, ￥ 或者$的金额
+        //处理包含, ￥ 或者$的金额
+        String currency =  amount.replaceAll("\\$|\\￥|\\,", "");
         int index = currency.indexOf(".");
         int length = currency.length();
-        Long amLong = 0l;
+        Long amLong = 0L;
         if(index == -1){
             amLong = Long.valueOf(currency+"00");
         }else if(length - index >= 3){

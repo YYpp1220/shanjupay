@@ -1,6 +1,3 @@
-/**
- * @(#)JsonUtil.java 2014-2-23 下午5:44:19
- */
 package com.djh.shanjupay.common.util;
 
 import com.alibaba.fastjson.JSON;
@@ -14,14 +11,32 @@ import java.util.List;
 import java.util.Map;
 
 
+/**
+ * json工具类
+ *
+ * @author MrMyHui
+ * @date 2021/04/01
+ */
 public class JsonUtil {
-    
-    public static String objectTojson(Object object){
+
+    /**
+     * json对象
+     *
+     * @param object 对象
+     * @return {@link String}
+     */
+    public static String objectToJson(Object object){
         return JSON.toJSONString(object,SerializerFeature.WriteDateUseDateFormat);
     }
-    
 
-    public static String listTojson(List list){
+
+    /**
+     * 列表json
+     *
+     * @param list 列表
+     * @return {@link String}
+     */
+    public static String listToJson(List list){
         return JSON.toJSONString(list, SerializerFeature.WriteDateUseDateFormat);
     }
 
@@ -31,7 +46,7 @@ public class JsonUtil {
      * @return 根据json转换为Map对象
      */
     public static Map<String, Object> jsonToMap(String strJson){
-        Map<String, Object> jsoMap = new HashMap<String, Object>();
+        Map jsoMap = new HashMap<String, Object>(16);
         try {
             jsoMap = JSONObject.parseObject(strJson,Map.class);
         } catch (JSONException e) {
@@ -48,7 +63,7 @@ public class JsonUtil {
      * @return 根据json转换List
      */
     public static List<Map<String, Object>> jsonToList(String strJson){
-        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+        List list = new ArrayList<Map<String, Object>>();
         try {
             list = JSONObject.parseObject(strJson, List.class);
         } catch (JSONException e) {

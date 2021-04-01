@@ -9,6 +9,12 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Base64;
 
+/**
+ * base64工具类
+ *
+ * @author MrMyHui
+ * @date 2021/04/01
+ */
 public class EncryptUtil {
     private static final Logger logger = LoggerFactory.getLogger(EncryptUtil.class);
 
@@ -24,8 +30,9 @@ public class EncryptUtil {
 
     /**
      * 将字符串进行base64解码
-     * @param str
-     * @return
+     *
+     * @param str str
+     * @return {@link byte[]}
      */
     public static byte[]  decodeBase64(String str){
         byte[] bytes = null;
@@ -35,8 +42,9 @@ public class EncryptUtil {
 
     /**
      * 将字符串str 先使用utf-8符集进行url编码 +转为%2B ?转为%3F 等防止传输过程中出问题，然后在进行base64编码
-     * @param str
-     * @return
+     *
+     * @param str str
+     * @return {@link String}
      */
     public static String encodeUTF8StringBase64(String str){
         String encoded = null;
@@ -52,8 +60,9 @@ public class EncryptUtil {
 
     /**
      * 将字符串str 先进行base64解码 然后在使用utf-8字符集进行url解码
-     * @param str
-     * @return
+     *
+     * @param str str
+     * @return {@link String}
      */
     public static String  decodeUTF8StringBase64(String str){
         String decoded = null;

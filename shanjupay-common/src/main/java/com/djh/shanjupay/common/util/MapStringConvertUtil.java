@@ -5,14 +5,23 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * map字符串转换工具类
+ *
+ * @author MrMyHui
+ * @date 2021/04/01
+ */
 public class MapStringConvertUtil {
 
     //参数类型是Map<String,String> 支付需要用string的参数。
+
     /**
-     *
+     * 得到字符串映射到
+     * <p>
      * map转str
-     * @param map
-     * @return
+     *
+     * @param map 集合
+     * @return {@link String}
      */
     public static String getMapToString(Map<String,String> map){
         Set<String> keySet = map.keySet();
@@ -36,9 +45,11 @@ public class MapStringConvertUtil {
     }
 
     /**
+     * 得到字符串映射
      * String转Map
-     * @param str
-     * @return
+     *
+     * @param str str
+     * @return {@link Map<String, String>}
      */
     public static Map<String,String> getStringToMap(String str){
         //判断str是否有值
@@ -56,11 +67,11 @@ public class MapStringConvertUtil {
 
         Map<String,String> map = new HashMap<>(mapLength);
         //循环加入map集合
-        for (int i = 0; i < strings.length; i++) {
+        for (String string : strings) {
             //截取一组字符串
-            String[] strArray = strings[i].split(":");
+            String[] strArray = string.split(":");
             //strArray[0]为KEY  strArray[1]为值
-            map.put(strArray[0],strArray[1]);
+            map.put(strArray[0], strArray[1]);
         }
         return map;
     }
