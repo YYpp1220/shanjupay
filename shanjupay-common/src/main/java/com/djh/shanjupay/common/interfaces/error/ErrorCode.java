@@ -1,4 +1,4 @@
-package com.djh.shanjupay.common.domain;
+package com.djh.shanjupay.common.interfaces.error;
 
 /**
  * 错误代码

@@ -1,4 +1,4 @@
-package com.djh.shanjupay.common.cache;
+package com.djh.shanjupay.common.interfaces.cache;
 
 import java.util.Set;
 

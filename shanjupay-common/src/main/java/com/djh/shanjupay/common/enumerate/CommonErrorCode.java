@@ -1,6 +1,7 @@
+package com.djh.shanjupay.common.enumerate;
 
-package com.djh.shanjupay.common.domain;
 
+import com.djh.shanjupay.common.interfaces.error.ErrorCode;
 
 /**
  * 常见的错误代码

@@ -1,7 +1,7 @@
+package com.djh.shanjupay.common.exception;
 
 
-package com.djh.shanjupay.common.domain;
-
+import com.djh.shanjupay.common.interfaces.error.ErrorCode;
 
 /**
  * 业务异常

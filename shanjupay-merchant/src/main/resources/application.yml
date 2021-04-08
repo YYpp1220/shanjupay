@@ -32,3 +32,14 @@ spring:
       # 连接过期时间
       connection-timeout: 30000
       connection-test-query: SELECT 1
+  # nacos 配置
+  cloud:
+    nacos:
+      discovery:
+        # nacos 地址
+        server-addr: 127.0.0.1:8848
+        namespace: 65a3eb11-8431-4479-a13a-87c938ef97ee
+        cluster-name: DEFAULT
+
+logging:
+  config: classpath:log4j2.xml
