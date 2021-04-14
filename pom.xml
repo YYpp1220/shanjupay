@@ -22,6 +22,7 @@
         <module>shanjupay-auth</module>
         <module>shanjupay-gateway</module>
         <module>shanjupay-merchant</module>
+        <module>shanjupay-generator</module>
     </modules>
 
     <!--统一版本依赖控制-->
