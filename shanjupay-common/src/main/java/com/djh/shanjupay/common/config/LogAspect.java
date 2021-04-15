@@ -70,7 +70,7 @@ public class LogAspect {
         Field field;
         String businessName = "";
         try {
-            field = clazz.getField("BUSINESS_NAME");
+            field = clazz.getField("SHANJUPAY_NAME");
             if (!StringUtils.isEmpty(field)) {
                 businessName = (String) field.get(clazz);
             }

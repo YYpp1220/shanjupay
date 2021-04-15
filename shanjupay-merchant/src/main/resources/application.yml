@@ -9,37 +9,30 @@ spring:
   # 启用bean覆盖 spring boot2.1以上版本需指定
   main:
     allow-bean-definition-overriding: true
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/shanjupay_merchant_service?useSSL=false&serverTimezone=UTC&characterEncoding=utf-8
-    username: root
-    password: YYpp1220
-    # hikari连接池配置
-    type: com.zaxxer.hikari.HikariDataSource
-    hikari:
-      # 最小连接数
-      minimum-idle: 5
-      # 最大连接数
-      maximum-pool-size: 15
-      # 控制从池返回的连接的默认自动提交行为,默认值：true
-      auto-commit: true
-      # 空闲连接最大存活时间
-      idle-timeout: 600000
-      # 连接池母子
-      pool-name: MyHikariCP
-      # 池中连接的最大生命周期
-      max-lifetime: 1800000
-      # 连接过期时间
-      connection-timeout: 30000
-      connection-test-query: SELECT 1
   # nacos 配置
   cloud:
     nacos:
       discovery:
         # nacos 地址
         server-addr: 127.0.0.1:8848
+        # 公司nacos开发环境namespace
         namespace: 65a3eb11-8431-4479-a13a-87c938ef97ee
         cluster-name: DEFAULT
+  # springMVC文件上传配置
+  servlet:
+    multipart:
+      # 默认支持文件上传
+      enabled: true
+      # 临时文件存放目录
+      location:
+      # 是否支持写入磁盘
+      file-size-threshold: 0
+      # 最大支持上传文件大小
+      max-file-size: 1GB
+      # 最大支持请求大小
+      max-request-size: 30MB
 
 logging:
   config: classpath:log4j2.xml
+  level:
+    com.djh.shanjupay.merchant: debug

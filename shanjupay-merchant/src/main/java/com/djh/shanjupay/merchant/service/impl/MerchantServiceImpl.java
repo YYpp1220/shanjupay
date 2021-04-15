@@ -1,5 +1,7 @@
 package com.djh.shanjupay.merchant.service.impl;
 
+import cn.hutool.json.JSONUtil;
+import com.djh.shanjupay.merchant.dto.MerchantDto;
 import com.djh.shanjupay.merchant.entity.Merchant;
 import com.djh.shanjupay.merchant.mapper.MerchantMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -22,4 +24,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant> {
     @Autowired
     private MerchantMapper merchantMapper;
+
+    /**
+     * 查询通过id
+     *
+     * @param merchantId 商户id
+     * @return {@link MerchantDto}
+     */
+    public MerchantDto queryById (Long merchantId) {
+        Merchant merchant = merchantMapper.selectById(merchantId);
+        return JSONUtil.toBean(JSONUtil.toJsonStr(merchant), MerchantDto.class);
+    }
 }

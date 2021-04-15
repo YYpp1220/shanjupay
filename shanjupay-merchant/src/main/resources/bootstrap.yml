@@ -4,10 +4,21 @@ spring:
       config:
         server-addr: 127.0.0.1:8848
         file-extension: yaml
+        # 公司nacos开发环境namespace
         namespace: 65a3eb11-8431-4479-a13a-87c938ef97ee
         group: SHANJUPAY_GROUP
-        ext-config:
+        extension-configs[0]:
           -
             refresh: true
             data-id: spring‐boot‐http.yaml # spring boot http配置
             group: COMMON_GROUP # 通用配置组
+        extension-configs[1]:
+          -
+            refresh: true
+            data-id: spring-boot-starter-hikari.yaml
+            group: COMMON_GROUP
+        extension-configs[2]:
+          -
+            refresh: true
+            data-id: spring-boot-mybatis-plus.yaml
+            group: COMMON_GROUP
