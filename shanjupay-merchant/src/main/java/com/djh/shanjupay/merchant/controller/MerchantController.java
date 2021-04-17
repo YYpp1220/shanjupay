@@ -2,6 +2,7 @@ package com.djh.shanjupay.merchant.controller;
 
 
 import com.djh.shanjupay.merchant.dto.MerchantDto;
+import io.swagger.annotations.ApiImplicitParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import com.djh.shanjupay.merchant.service.impl.MerchantServiceImpl;
@@ -22,13 +23,15 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Slf4j
 @Controller
-@Api(value = "", tags = "", description="")
+@Api(value = "商户平台-商户相关", tags = "商户平台-商户相关")
 public class MerchantController {
     public static final String SHANJUPAY_NAME = "商户";
 
     @Autowired
     private MerchantServiceImpl merchantService;
 
+    @ApiOperation(value = "根据商户id查询")
+    @ApiImplicitParam(name = "merchantId", value = "商户id", dataType = "Long", required = true)
     @GetMapping("/queryById")
     public ResponseEntity<MerchantDto> queryById (@RequestParam Long merchantId) {
         MerchantDto merchantDto = merchantService.queryById(merchantId);
