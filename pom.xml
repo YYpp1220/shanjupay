@@ -235,21 +235,24 @@
                 <artifactId>okhttp</artifactId>
                 <version>${okhttp.version}</version>
             </dependency>
+
+            <!--版本锁定，解决swagger类型报错问题-->
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>1.5.22</version>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-models</artifactId>
+                <version>1.5.22</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <build>
         <finalName>${project.name}</finalName>
         <plugins>
-            <!-- 配置spring-boot的maven插件
-                    1. 用它可以运行spring-boot项目
-                    2. 需要用它构建打jar、war资料
-                 -->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

@@ -61,15 +61,6 @@
 
     <build>
         <plugins>
-            <!-- 配置spring-boot的maven插件
-                    1. 用它可以运行spring-boot项目
-                    2. 需要用它构建打jar、war资料
-                 -->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-
             <!-- 指定maven编译的jdk版本,如果不指定,maven3默认用jdk 1.5 maven2默认用jdk1.3 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
