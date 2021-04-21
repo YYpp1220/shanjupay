@@ -7,6 +7,12 @@ import java.io.Serializable;
 import lombok.Data;
 import com.baomidou.mybatisplus.annotation.TableName;
 
+/**
+ * 商户-工作人员关联实体
+ *
+ * @author MyMrDiao
+ * @date 2021/04/14
+ */
 @Data
 @TableName("store_staff")
 public class StoreStaff implements Serializable {

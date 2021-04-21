@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant> {
-    @Autowired
+    @Autowired(required = false)
     private MerchantMapper merchantMapper;
 
     /**

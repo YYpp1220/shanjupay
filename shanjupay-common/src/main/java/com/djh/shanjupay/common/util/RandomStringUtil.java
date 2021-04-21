@@ -1,6 +1,8 @@
 package com.djh.shanjupay.common.util;
 
 
+import com.djh.shanjupay.common.enumerate.CommonErrorCode;
+import com.djh.shanjupay.common.exception.BusinessException;
 import org.apache.commons.lang.RandomStringUtils;
 
 import java.util.Random;
@@ -36,6 +38,8 @@ public class RandomStringUtil {
                     case 2:
                         sb.append(String.valueOf(new Random().nextInt(10)));
                         break;
+                    default:
+                        throw new BusinessException(CommonErrorCode.UNKOWN);
                 }
             }
             return sb.toString();

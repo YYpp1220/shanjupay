@@ -6,11 +6,11 @@ import org.springframework.stereotype.Repository;
 
 /**
  * <p>
- *  Mapper 接口
+ * 员工 接口
  * </p>
  *
  * @author author
- * @since 2021-04-14
+ * @date 2021/04/14
  */
 public interface StaffMapper extends BaseMapper<Staff> {
 

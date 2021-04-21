@@ -7,6 +7,12 @@ import java.io.Serializable;
 import lombok.Data;
 import com.baomidou.mybatisplus.annotation.TableName;
 
+/**
+ * 应用程序
+ *
+ * @author MyMrDiao
+ * @date 2021/04/14
+ */
 @Data
 @TableName("app")
 public class App implements Serializable {

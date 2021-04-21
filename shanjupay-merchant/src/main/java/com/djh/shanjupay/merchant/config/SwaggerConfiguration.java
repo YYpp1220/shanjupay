@@ -1,4 +1,3 @@
-/*
 package com.djh.shanjupay.merchant.config;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -13,14 +12,12 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-*/
 /**
  * swagger配置类
  *
  * @author MrMyHui
  * @date 2021/04/16
- *//*
-
+ */
 @Configuration
 @EnableSwagger2
 @ConditionalOnProperty(prefix = "swagger", value = {"enable"}, havingValue = "true")
@@ -46,4 +43,3 @@ public class SwaggerConfiguration {
                 .build();
     }
 }
-*/

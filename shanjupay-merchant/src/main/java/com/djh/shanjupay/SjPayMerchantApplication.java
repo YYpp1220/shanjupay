@@ -3,7 +3,6 @@ package com.djh.shanjupay;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import com.djh.shanjupay.common.config.LogAspect;
-import com.djh.shanjupay.common.config.SwaggerConfiguration;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
@@ -20,7 +19,7 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 @EnableDiscoveryClient
 @MapperScan("com.djh.shanjupay.merchant.mapper")
-@ImportAutoConfiguration(value = {LogAspect.class, SwaggerConfiguration.class})
+@ImportAutoConfiguration(value = {LogAspect.class})
 public class SjPayMerchantApplication {
     public static void main(String[] args) {
         SpringApplication.run(SjPayMerchantApplication.class, args);

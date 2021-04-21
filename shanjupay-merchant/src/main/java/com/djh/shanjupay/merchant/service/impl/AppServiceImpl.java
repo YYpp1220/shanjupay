@@ -20,6 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class AppServiceImpl extends ServiceImpl<AppMapper, App> {
-    @Autowired
+    @Autowired(required = false)
     private AppMapper appMapper;
 }

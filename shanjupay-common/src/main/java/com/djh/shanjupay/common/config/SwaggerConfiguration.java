@@ -1,3 +1,4 @@
+/*
 package com.djh.shanjupay.common.config;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -12,12 +13,14 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+*/
 /**
  * swagger配置类
  *
  * @author MrMyHui
  * @date 2021/04/16
- */
+ *//*
+
 @Configuration
 @EnableSwagger2
 @ConditionalOnProperty(prefix = "swagger", value = {"enable"}, havingValue = "true")
@@ -28,7 +31,7 @@ public class SwaggerConfiguration {
                 .apiInfo(buildApiInfo())
                 .select()
                 // 要扫描的API（controller）的基础包
-                .apis(RequestHandlerSelectors.basePackage("com.djh.shanjupay.merchant.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.djh.shanjupay.*.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -43,3 +46,4 @@ public class SwaggerConfiguration {
                 .build();
     }
 }
+*/
