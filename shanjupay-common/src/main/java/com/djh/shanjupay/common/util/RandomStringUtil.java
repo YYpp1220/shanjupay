@@ -39,7 +39,7 @@ public class RandomStringUtil {
                         sb.append(String.valueOf(new Random().nextInt(10)));
                         break;
                     default:
-                        throw new BusinessException(CommonErrorCode.UNKOWN);
+                        throw new BusinessException(CommonErrorCode.UNKNOWN);
                 }
             }
             return sb.toString();

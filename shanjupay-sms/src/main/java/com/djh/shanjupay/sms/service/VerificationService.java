@@ -1,6 +1,6 @@
 package com.djh.shanjupay.sms.service;
 
-import com.djh.shanjupay.sms.dto.VerificationInfo;
+import com.djh.shanjupay.sms.entity.VerificationInfo;
 import com.djh.shanjupay.sms.handler.AbstractVerificationHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,7 +29,7 @@ public class VerificationService {
      * @param effectiveTime 验证信息有效期(秒)
      * @return
      */
-    public VerificationInfo generateVerificationInfo(String name, Map<String,Object> payload,  int effectiveTime){
+    public VerificationInfo generateVerificationInfo(String name, Map<String,Object> payload, int effectiveTime){
         AbstractVerificationHandler verificationHandler =  getVerificationHandler(name);
         return verificationHandler.generateVerificationInfo(payload, effectiveTime);
     }

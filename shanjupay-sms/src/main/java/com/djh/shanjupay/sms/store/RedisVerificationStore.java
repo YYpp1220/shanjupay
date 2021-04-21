@@ -1,6 +1,6 @@
 package com.djh.shanjupay.sms.store;
 
-import com.djh.shanjupay.sms.common.cache.Cache;
+import com.djh.shanjupay.common.interfaces.cache.Cache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

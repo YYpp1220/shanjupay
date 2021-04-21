@@ -1,7 +1,7 @@
 package com.djh.shanjupay.sms.sms.qcloud;
 
-import com.djh.shanjupay.sms.common.domain.BusinessException;
-import com.djh.shanjupay.sms.common.domain.CommonErrorCode;
+import com.djh.shanjupay.common.enumerate.CommonErrorCode;
+import com.djh.shanjupay.common.exception.BusinessException;
 import com.djh.shanjupay.sms.sms.SmsService;
 import com.github.qcloudsms.SmsSingleSenderResult;
 import lombok.extern.slf4j.Slf4j;

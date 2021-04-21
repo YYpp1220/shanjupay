@@ -1,4 +1,4 @@
-package com.djh.shanjupay.sms.dto;
+package com.djh.shanjupay.sms.entity;
 
 
 import lombok.AllArgsConstructor;

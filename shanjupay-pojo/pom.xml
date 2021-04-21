@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>shanjupay-merchant-pojo</module>
+        <module>shanjupay-sms-pojo</module>
     </modules>
 
     <dependencies>

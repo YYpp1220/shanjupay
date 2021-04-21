@@ -17,8 +17,12 @@ spring:
     time-zone: GMT+8
 
   redis:
-    host: 192.168.203.128
-    port: 6379
+#    host: 192.168.203.128
+#    host: 172.16.1.241
+    cluster:
+      nodes: 172.16.1.241:6379,172.16.1.242:6379
+      max-redirects: 2
+    #    port: 6379
     lettuce:
       pool:
         max-idle: 8
@@ -40,6 +44,6 @@ swagger:
 
 logging:
   config: classpath:log4j2.xml
-    
-
+  level:
+    com.djh.shanjupay.sms: debug
 

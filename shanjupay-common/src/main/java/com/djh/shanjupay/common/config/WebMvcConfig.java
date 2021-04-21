@@ -1,4 +1,4 @@
-package com.djh.shanjupay.sms.config;
+package com.djh.shanjupay.common.config;
 
 
 import org.springframework.stereotype.Component;

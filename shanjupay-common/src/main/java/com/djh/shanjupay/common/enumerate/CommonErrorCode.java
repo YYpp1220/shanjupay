@@ -103,12 +103,23 @@ public enum CommonErrorCode implements ErrorCode {
 	E_999913(999913,"调用微服务-json-token令牌有误-没有当前租户信息"),
 	E_999914(999914,"调用微服务-json-token令牌有误-该租户下没有权限信息"),
 
+	/**
+	 * e没有权威
+	 */
 	E_NO_AUTHORITY(999997,"没有访问权限"),
+	/**
+	 * 自定义
+	 */
 	CUSTOM(999998,"自定义异常"),
+
+	/**
+	 * 成功
+	 */
+	SUCCESS(0, "成功"),
 	/**
 	 * 未知错误
 	 */
-	UNKOWN(999999,"未知错误");
+	UNKNOWN(999999,"未知错误");
 	
 
 	private int code;

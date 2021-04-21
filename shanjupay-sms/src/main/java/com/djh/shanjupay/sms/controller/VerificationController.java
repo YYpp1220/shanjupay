@@ -1,8 +1,8 @@
 package com.djh.shanjupay.sms.controller;
 
 
-import com.djh.shanjupay.sms.common.domain.RestResponse;
-import com.djh.shanjupay.sms.dto.VerificationInfo;
+import com.djh.shanjupay.common.domain.RestResponse;
+import com.djh.shanjupay.sms.entity.VerificationInfo;
 import com.djh.shanjupay.sms.service.VerificationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -25,6 +25,7 @@ import java.util.Map;
 @Api(value = "验证码服务接口")
 @RestController
 public class VerificationController {
+    public static final String SHANJUPAY_NAME = "短信";
 
     @Autowired
     private VerificationService verificationService;

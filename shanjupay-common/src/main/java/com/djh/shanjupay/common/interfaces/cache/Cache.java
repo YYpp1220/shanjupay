@@ -5,8 +5,8 @@ import java.util.Set;
 /**
  * 缓存
  *
- * @author MrMyHui
- * @date 2021/03/26
+ * @author MyMrDiao
+ * @date 2021/04/20
  */
 public interface Cache {
 
@@ -19,7 +19,7 @@ public interface Cache {
 
 
     /**
-     * 得到钥匙
+     * 列出所有的key
      *
      * @param pattern 模式
      * @return {@link Set<String>}
@@ -52,7 +52,7 @@ public interface Cache {
     void set(String key, String value);
 
     /**
-     * 集
+     * 存入redis
      *
      * @param key        关键
      * @param value      价值
@@ -94,7 +94,7 @@ public interface Cache {
      * @param newValue 新值
      * @return 旧值
      */
-    String getset(String key, String newValue);
+    String getSet(String key, String newValue);
 
     /**
      * 分布锁
@@ -103,7 +103,7 @@ public interface Cache {
      * @param value 价值
      * @return boolean
      */
-    boolean setnx(String key, String value);
+    boolean setNx(String key, String value);
 
 
     /**

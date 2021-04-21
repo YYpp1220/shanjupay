@@ -1,4 +1,4 @@
-package com.djh.shanjupay.sms.common.cache;
+package com.djh.shanjupay.common.interfaces.cache;
 
 import org.springframework.data.redis.core.StringRedisTemplate;
 

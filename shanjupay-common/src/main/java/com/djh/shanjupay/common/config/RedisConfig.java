@@ -1,8 +1,8 @@
-package com.djh.shanjupay.sms.config;
+package com.djh.shanjupay.common.config;
 
 
-import com.djh.shanjupay.sms.common.cache.Cache;
-import com.djh.shanjupay.sms.common.cache.RedisCache;
+import com.djh.shanjupay.common.interfaces.cache.Cache;
+import com.djh.shanjupay.common.interfaces.cache.RedisCache;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.StringRedisTemplate;

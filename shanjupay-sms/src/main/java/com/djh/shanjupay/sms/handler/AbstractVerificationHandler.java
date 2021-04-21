@@ -1,6 +1,6 @@
 package com.djh.shanjupay.sms.handler;
 
-import com.djh.shanjupay.sms.dto.VerificationInfo;
+import com.djh.shanjupay.sms.entity.VerificationInfo;
 import com.djh.shanjupay.sms.generator.VerificationCodeGenerator;
 import com.djh.shanjupay.sms.generator.VerificationKeyGenerator;
 import com.djh.shanjupay.sms.store.VerificationStore;

@@ -1,9 +1,9 @@
-package com.djh.shanjupay.sms.common.intercept;
+package com.djh.shanjupay.common.intercept;
 
 
-import com.djh.shanjupay.sms.common.domain.BusinessException;
-import com.djh.shanjupay.sms.common.domain.CommonErrorCode;
-import com.djh.shanjupay.sms.common.domain.RestResponse;
+import com.djh.shanjupay.common.domain.RestResponse;
+import com.djh.shanjupay.common.enumerate.CommonErrorCode;
+import com.djh.shanjupay.common.exception.BusinessException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;
