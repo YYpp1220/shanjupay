@@ -1,11 +1,11 @@
 server:
   port: 56085
   servlet:
-    context-path: /sailing
+    context-path: /sms
 
 spring:
   application:
-    name: sailing
+    name: sms
 
   main:
     allow-bean-definition-overriding: true

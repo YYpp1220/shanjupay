@@ -1,0 +1,45 @@
+
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+ 	<meta charset="UTF-8">
+ 	<title>键盘按键监听测试</title>
+ </head>
+ <body>
+ 	baody
+ 	<input name="name" placeholder="name" />
+ 	<input id='birthday' name="birthday" placeholder="birthday" />
+ </body>
+ </html>
+<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script type="text/javascript">
+	
+	$("#birthday").focus();
+	function keyDown(e){
+		//IE内核浏览器
+		 if (navigator.appName == 'Microsoft Internet Explorer'){
+	           var keycode = event.keyCode;
+	           var realkey = String.fromCharCode(event.keyCode);
+	     }else {//非IE内核浏览器
+	           var keycode = e.which;
+	           var realkey = String.fromCharCode(e.which);
+	     }
+       // console.log('按键码:' + keycode +  '字符: ' + realkey);
+ 
+       //监听Ctrl键
+       if(keycode==17){
+       		$("#birthday").focus();
+       		$("#birthday").select();
+       }
+       $("#birthday").change(function(){
+           console.log();
+           $("#birthday").val() = ''
+           $("#birthday").select();
+           $("#birthday").val($(this).val())
+       })
+     
+	} 
+	document.οnkeydοwn=keyDown;
+ 
+</script>
+
