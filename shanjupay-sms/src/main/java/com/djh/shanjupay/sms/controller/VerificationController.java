@@ -47,8 +47,8 @@ public class VerificationController {
     })
     @PostMapping(value = "/generate")
     public RestResponse<VerificationInfo> generateVerificationInfo(@RequestParam("name")String name,
-                                                                   @RequestBody Map<String,Object> payload,
-                                                                   @RequestParam("effectiveTime")int effectiveTime){
+                                                                   @RequestBody@RequestParam Map<String,Object> payload,
+                                                                   @RequestParam(value = "effectiveTime", required = false)int effectiveTime){
         VerificationInfo verificationInfo = verificationService.generateVerificationInfo(name, payload, effectiveTime);
         return RestResponse.success(verificationInfo);
     }
@@ -69,7 +69,7 @@ public class VerificationController {
             @ApiImplicitParam(name = "verificationCode", value = "验证码", required = true, dataType = "String", paramType="query")
     })
     @PostMapping(value = "/verify")
-    public RestResponse<Boolean> verify(String name, String verificationKey, String verificationCode){
+    public RestResponse<Boolean> verify(@RequestParam String name, @RequestParam String verificationKey, @RequestParam String verificationCode){
         Boolean isSuccess = verificationService.verify(name,verificationKey,verificationCode);
         return RestResponse.success(isSuccess);
     }

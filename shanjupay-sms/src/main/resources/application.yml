@@ -1,11 +1,11 @@
 server:
   port: 56085
   servlet:
-    context-path: /sms
+    context-path: /sj-sms
 
 spring:
   application:
-    name: sms
+    name: sj-sms
 
   main:
     allow-bean-definition-overriding: true
