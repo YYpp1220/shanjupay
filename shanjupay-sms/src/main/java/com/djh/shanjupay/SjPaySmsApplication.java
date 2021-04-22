@@ -1,4 +1,4 @@
-package com.djh.shanjupay.sms;
+package com.djh.shanjupay;
 
 
 import com.djh.shanjupay.common.config.LogAspect;
