@@ -73,9 +73,9 @@
                 <configuration>
                     <!-- 一般而言，target与source是保持一致的，但是，有时候为了让程序能在其他版本的jdk中运行(对于低版本目标jdk，源代码中不能使用低版本jdk中不支持的语法)，会存在target不同于source的情况 -->
                     <!-- 源代码使用的JDK版本 -->
-                    <source>1.8</source>
+                    <source>11</source>
                     <!-- 需要生成的目标class文件的编译版本 -->
-                    <target>1.8</target>
+                    <target>11</target>
                     <compilerArguments>
                         <bootclasspath>${java.home}/lib/rt.jar;${java.home}/lib/jce.jar</bootclasspath>
                     </compilerArguments>
