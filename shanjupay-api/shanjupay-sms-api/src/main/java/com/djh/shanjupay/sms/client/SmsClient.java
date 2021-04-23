@@ -25,7 +25,7 @@ public interface SmsClient {
      * @param effectiveTime 有效的时间
      * @return {@link RestResponse<VerificationInfo>}
      */
-    @PostMapping(value = "/generate")
+    @PostMapping(value = "/sms/generate")
     public RestResponse<VerificationInfo> generateVerificationInfo(@RequestParam("name")String name,
                                                                    @RequestBody @RequestParam Map<String,Object> payload,
                                                                    @RequestParam(value = "effectiveTime", required = false)int effectiveTime);
@@ -38,7 +38,7 @@ public interface SmsClient {
      * @param verificationCode 验证码
      * @return {@link RestResponse<Boolean>}
      */
-    @PostMapping(value = "/verify")
+    @PostMapping(value = "/sms/verify")
     public RestResponse<Boolean> verify(@RequestParam String name,
                                         @RequestParam String verificationKey,
                                         @RequestParam String verificationCode);

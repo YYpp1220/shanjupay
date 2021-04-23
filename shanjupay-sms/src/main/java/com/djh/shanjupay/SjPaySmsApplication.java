@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * sj支付短信应用程序
@@ -16,6 +17,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
  * @date 2021/04/20
  */
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+@EnableDiscoveryClient
 @ImportAutoConfiguration(value = {LogAspect.class, RedisConfig.class, WebMvcConfig.class})
 public class SjPaySmsApplication {
 

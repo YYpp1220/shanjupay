@@ -1,7 +1,7 @@
 server:
   port: 56085
   servlet:
-    context-path: /sj-sms
+    context-path: /sms
 
 spring:
   application:
@@ -10,37 +10,17 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
-
-
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
-
-  redis:
-#    host: 192.168.203.128
-#    host: 172.16.1.241
-    cluster:
-      nodes: 172.16.1.241:6379,172.16.1.242:6379
-      max-redirects: 2
-    #    port: 6379
-    lettuce:
-      pool:
-        max-idle: 8
-        min-idle: 0
-        max-active: 8
-        max-wait: 10000
-      shutdown-timeout: 100
-    timeout: 10000
-
-sms:
-  qcloud:
-    appId: 0
-    appKey: appKey
-    templateId: 0
-    sign: 签名
-
-swagger:
-  enable: true
+  cloud:
+    nacos:
+      discovery:
+        # nacos 地址
+        server-addr: 127.0.0.1:8848
+        #        server-addr: 192.168.203.128:8848
+        # 公司nacos开发环境namespace
+        namespace: 65a3eb11-8431-4479-a13a-87c938ef97ee
+        # 本机nacos开发环境
+        #        namespace: 67402c73-2d27-4a13-84b8-8ad1d94836b1
+        cluster-name: DEFAULT
 
 logging:
   config: classpath:log4j2.xml

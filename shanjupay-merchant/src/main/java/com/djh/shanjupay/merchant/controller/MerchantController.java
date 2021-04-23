@@ -1,7 +1,9 @@
 package com.djh.shanjupay.merchant.controller;
 
 
+import com.djh.shanjupay.common.domain.RestResponse;
 import com.djh.shanjupay.merchant.dto.MerchantDto;
+import com.djh.shanjupay.sms.entity.VerificationInfo;
 import io.swagger.annotations.ApiImplicitParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -33,8 +35,23 @@ public class MerchantController {
     @ApiOperation(value = "根据商户id查询")
     @ApiImplicitParam(name = "merchantId", value = "商户id", dataType = "Long", required = true)
     @GetMapping("/queryById")
-    public ResponseEntity<MerchantDto> queryById (@RequestParam Long merchantId) {
+    public ResponseEntity<MerchantDto> queryById (@RequestParam("merchantId") Long merchantId) {
         MerchantDto merchantDto = merchantService.queryById(merchantId);
         return ResponseEntity.ok(merchantDto);
+    }
+
+    /**
+     * 获取短信验证码
+     *
+     * @param phone 电话
+     * @return {@link ResponseEntity<RestResponse<String>>}
+     */
+    @ApiOperation("获取手机验证码")
+    @ApiImplicitParam(name = "phone", value = "手机号", required = true, dataType = "String", paramType = "query")
+    @GetMapping("/getSmsCode")
+    public ResponseEntity<RestResponse<VerificationInfo>> getSmsCode (@RequestParam("phone") String phone) {
+        log.info("获取短信验证码开始，手机号{}", phone);
+        RestResponse<VerificationInfo> restResponse = merchantService.getSmsCode(phone);
+        return ResponseEntity.ok(restResponse);
     }
 }
