@@ -8,6 +8,7 @@ import com.djh.shanjupay.merchant.dto.MerchantDto;
 import com.djh.shanjupay.merchant.entity.Merchant;
 import com.djh.shanjupay.merchant.mapper.MerchantMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.djh.shanjupay.merchant.vo.MerchantRegisterVO;
 import com.djh.shanjupay.sms.client.SmsClient;
 import com.djh.shanjupay.sms.entity.VerificationInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -68,5 +69,36 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant> {
             throw new BusinessException(CommonErrorCode.CUSTOM);
         }
         return verificationInfo;
+    }
+
+    /**
+     * 校验验证码
+     *
+     * @param verifyKey  验证关键
+     * @param verifyCode 验证代码
+     * @return {@link RestResponse<Boolean>}
+     */
+    public RestResponse<Boolean> checkVerifyCode (String verifyKey, String verifyCode) {
+        RestResponse<Boolean> verifyCodeFlag = new RestResponse<>();
+        try {
+            verifyCodeFlag = smsClient.verify("sms", verifyKey, verifyCode);
+        } catch (Exception e) {
+            log.error("feign调用出错！{}", e.getMessage());
+            throw new BusinessException(CommonErrorCode.E_100102);
+        }
+        if (!verifyCodeFlag.getResult()) {
+            throw new BusinessException(CommonErrorCode.E_100102);
+        }
+        return verifyCodeFlag;
+    }
+
+    /**
+     * 保存的商户
+     *
+     * @param merchantRegisterVO 商人登记签证官
+     * @return {@link RestResponse<MerchantDto>}
+     */
+    public RestResponse<MerchantDto> saveMerchant(MerchantRegisterVO merchantRegisterVO) {
+        return null;
     }
 }

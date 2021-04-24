@@ -74,7 +74,7 @@ public class MyBatisPlusGenerator {
 
 		// 商户服务
 		dataSourceConfig
-				.setUrl("jdbc:mysql://127.0.0.1:3306/shanjupay_merchant_service?serverTimezone=Asia/Shanghai");
+				.setUrl("jdbc:mysql://192.168.203.128:3306/shanjupay_merchant_service?serverTimezone=Asia/Shanghai");
 
 		// 交易服务
 //		dataSourceConfig
@@ -82,7 +82,7 @@ public class MyBatisPlusGenerator {
 		// dataSourceConfig.setSchemaName("public");
 		dataSourceConfig.setDriverName("com.mysql.cj.jdbc.Driver");
 		dataSourceConfig.setUsername("root");
-		dataSourceConfig.setPassword("YYpp1220");
+		dataSourceConfig.setPassword("LxR52013141220");
 		autoGenerator.setDataSource(dataSourceConfig);
 
         // 生成包配置
@@ -128,6 +128,17 @@ public class MyBatisPlusGenerator {
 
                 // 自定义输出文件名
                 return projectPath + TO_ENTITY_PATH + "/src/main/java/com/djh/shanjupay/merchant/entity/" + tableInfo.getEntityName() + StringPool.DOT_JAVA;
+            }
+        });
+
+        globalConfig.setSwagger2(true);
+        globalConfig.setEntityName("%sDto");
+        packageConfig.setEntity("dto");
+        focList.add(new FileOutConfig("/templates/dto.java.ftl") {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                // 自定义输出文件名
+                return projectPath + TO_ENTITY_PATH + "/src/main/java/com/djh/shanjupay/merchant/dto/" + tableInfo.getEntityName() + StringPool.DOT_JAVA;
             }
         });
 
