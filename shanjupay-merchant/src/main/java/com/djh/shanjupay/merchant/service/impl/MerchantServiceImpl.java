@@ -4,6 +4,7 @@ import cn.hutool.json.JSONUtil;
 import com.djh.shanjupay.common.domain.RestResponse;
 import com.djh.shanjupay.common.enumerate.CommonErrorCode;
 import com.djh.shanjupay.common.exception.BusinessException;
+import com.djh.shanjupay.merchant.convert.MerchantConvert;
 import com.djh.shanjupay.merchant.dto.MerchantDto;
 import com.djh.shanjupay.merchant.entity.Merchant;
 import com.djh.shanjupay.merchant.mapper.MerchantMapper;
@@ -38,6 +39,9 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant> {
     @Autowired(required = false)
     private SmsClient smsClient;
 
+    @Autowired(required = false)
+    private MerchantConvert merchantConvert;
+
     /**
      * 查询通过id
      *
@@ -55,7 +59,7 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant> {
      * @param phone 电话
      * @return {@link RestResponse<String>}
      */
-    public RestResponse<VerificationInfo> getSmsCode(String phone) {
+    public RestResponse<VerificationInfo> getSmsCode(String phone) throws BusinessException {
         if (StringUtils.isEmpty(phone)) {
             throw new BusinessException(CommonErrorCode.E_200230);
         }
@@ -78,27 +82,36 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant> {
      * @param verifyCode 验证代码
      * @return {@link RestResponse<Boolean>}
      */
-    public RestResponse<Boolean> checkVerifyCode (String verifyKey, String verifyCode) {
+    public void checkVerifyCode (String verifyKey, String verifyCode) throws BusinessException {
         RestResponse<Boolean> verifyCodeFlag = new RestResponse<>();
         try {
             verifyCodeFlag = smsClient.verify("sms", verifyKey, verifyCode);
         } catch (Exception e) {
             log.error("feign调用出错！{}", e.getMessage());
-            throw new BusinessException(CommonErrorCode.E_100102);
+            throw new BusinessException(CommonErrorCode.E_999915);
         }
         if (!verifyCodeFlag.getResult()) {
             throw new BusinessException(CommonErrorCode.E_100102);
         }
-        return verifyCodeFlag;
     }
 
     /**
      * 保存的商户
      *
-     * @param merchantRegisterVO 商人登记签证官
+     * @param merchantDto 商人登记签证官
      * @return {@link RestResponse<MerchantDto>}
      */
-    public RestResponse<MerchantDto> saveMerchant(MerchantRegisterVO merchantRegisterVO) {
-        return null;
+    public MerchantRegisterVO saveMerchant(MerchantDto merchantDto) throws BusinessException {
+        //将dto转成entity
+        Merchant merchant = merchantConvert.dtoToEntity(merchantDto);
+        //设置审核状态0‐未申请,1‐已申请待审核,2‐审核通过,3‐审核拒绝
+        merchant.setAuditStatus("0");
+        //保存商户信息
+        int insertId = merchantMapper.insert(merchant);
+        if (StringUtils.isEmpty(insertId)) {
+            throw new BusinessException(CommonErrorCode.E_100108);
+        }
+        //将entity转成 dto
+        return merchantConvert.entityToVo(merchant);
     }
 }

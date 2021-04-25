@@ -2,7 +2,10 @@ package com.djh.shanjupay.merchant.controller;
 
 
 import com.djh.shanjupay.common.domain.RestResponse;
+import com.djh.shanjupay.common.enumerate.CommonErrorCode;
+import com.djh.shanjupay.common.exception.BusinessException;
 import com.djh.shanjupay.common.util.BuilderUtils;
+import com.djh.shanjupay.merchant.convert.MerchantConvert;
 import com.djh.shanjupay.merchant.dto.MerchantDto;
 import com.djh.shanjupay.merchant.vo.MerchantRegisterVO;
 import com.djh.shanjupay.sms.entity.VerificationInfo;
@@ -17,7 +20,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -28,13 +33,16 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @since 2021-04-14
  */
 @Slf4j
-@Controller
+@RestController
 @Api(value = "商户平台-商户相关", tags = "商户平台-商户相关")
 public class MerchantController {
     public static final String SHANJUPAY_NAME = "商户";
 
     @Autowired
     private MerchantServiceImpl merchantService;
+
+    @Autowired
+    private MerchantConvert merchantConvert;
 
     @ApiOperation(value = "根据商户id查询")
     @ApiImplicitParam(name = "merchantId", value = "商户id", dataType = "Long", required = true)
@@ -60,15 +68,19 @@ public class MerchantController {
     }
 
     @ApiOperation("注册商户")
-    @ApiImplicitParam(name = "merchantRegister", value = "注册信息", required = true, dataType = "MerchantRegisterVO", paramType = "body")
-    public ResponseEntity<BuilderUtils<RestResponse<Object>>> saveMerchant (@RequestParam("MerchantRegisterVO") MerchantRegisterVO merchantRegisterVO) {
-        BuilderUtils<RestResponse<Object>> responseBuilderUtils = BuilderUtils.of(RestResponse::new);
+    @ApiImplicitParam(name = "merchantRegisterVO", value = "注册信息", required = true, dataType = "MerchantRegisterVO", paramType = "body")
+    @PostMapping("/register")
+    public ResponseEntity<BuilderUtils<RestResponse<MerchantRegisterVO>>> saveMerchant (@RequestParam("MerchantRegisterVO") MerchantRegisterVO merchantRegisterVO) {
+        BuilderUtils<RestResponse<MerchantRegisterVO>> responseBuilderUtils = BuilderUtils.of(RestResponse::new);
         if (StringUtils.isEmpty(merchantRegisterVO.getVerifyKey()) || StringUtils.isEmpty(merchantRegisterVO.getVerifyCode())) {
-            responseBuilderUtils.with(RestResponse::setCode, 500).with(RestResponse::setMsg, "验证码不能为空！");
+            throw new BusinessException(CommonErrorCode.E_100103);
         }
-        BeanUtils.copyProperties(merchantRegisterVO, MerchantDto.class);
-        RestResponse<Boolean> verifyCode = merchantService.checkVerifyCode(merchantRegisterVO.getVerifyKey(), merchantRegisterVO.getVerifyCode());
-        RestResponse<MerchantDto> merchantDto = merchantService.saveMerchant(merchantRegisterVO);
+        merchantService.checkVerifyCode(merchantRegisterVO.getVerifyKey(), merchantRegisterVO.getVerifyCode());
+        MerchantDto merchantDto = merchantConvert.voToDto(merchantRegisterVO);
+        MerchantRegisterVO merchantRegisterVoResponse = merchantService.saveMerchant(merchantDto);
+        if (!StringUtils.isEmpty(merchantRegisterVoResponse)) {
+            responseBuilderUtils.with(RestResponse::setCode, 200).with(RestResponse::setResult, merchantRegisterVoResponse);
+        }
         return ResponseEntity.ok(responseBuilderUtils);
     }
 }

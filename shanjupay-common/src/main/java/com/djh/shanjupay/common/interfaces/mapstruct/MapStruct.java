@@ -26,6 +26,14 @@ public interface MapStruct<E, D, V> {
     D entityToDto(E e);
 
     /**
+     * 实体签证官
+     *
+     * @param e e
+     * @return {@link V}
+     */
+    V entityToVo(E e);
+
+    /**
      * dto,签证官
      *
      * @param d d
