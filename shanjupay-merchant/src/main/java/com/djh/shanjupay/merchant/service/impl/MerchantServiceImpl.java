@@ -112,6 +112,7 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant> {
             throw new BusinessException(CommonErrorCode.E_100108);
         }
         //将entity转成 dto
-        return merchantConvert.entityToVo(merchant);
+        MerchantRegisterVO merchantRegisterVO = merchantConvert.entityToVo(merchant);
+        return merchantRegisterVO;
     }
 }

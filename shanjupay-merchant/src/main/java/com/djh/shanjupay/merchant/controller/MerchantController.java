@@ -19,10 +19,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -70,7 +67,7 @@ public class MerchantController {
     @ApiOperation("注册商户")
     @ApiImplicitParam(name = "merchantRegisterVO", value = "注册信息", required = true, dataType = "MerchantRegisterVO", paramType = "body")
     @PostMapping("/register")
-    public ResponseEntity<BuilderUtils<RestResponse<MerchantRegisterVO>>> saveMerchant (@RequestParam("MerchantRegisterVO") MerchantRegisterVO merchantRegisterVO) {
+    public ResponseEntity<Object> saveMerchant (@RequestBody MerchantRegisterVO merchantRegisterVO) {
         BuilderUtils<RestResponse<MerchantRegisterVO>> responseBuilderUtils = BuilderUtils.of(RestResponse::new);
         if (StringUtils.isEmpty(merchantRegisterVO.getVerifyKey()) || StringUtils.isEmpty(merchantRegisterVO.getVerifyCode())) {
             throw new BusinessException(CommonErrorCode.E_100103);
