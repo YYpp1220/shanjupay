@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -101,7 +102,7 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant> {
      * @param merchantDto 商人登记签证官
      * @return {@link RestResponse<MerchantDto>}
      */
-    public MerchantRegisterVO saveMerchant(MerchantDto merchantDto) throws BusinessException {
+    public MerchantRegisterVO saveMerchant(@Valid MerchantDto merchantDto) throws BusinessException {
         //将dto转成entity
         Merchant merchant = merchantConvert.dtoToEntity(merchantDto);
         //设置审核状态0‐未申请,1‐已申请待审核,2‐审核通过,3‐审核拒绝

@@ -21,6 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * <p>
  *  前端控制器
@@ -67,8 +69,9 @@ public class MerchantController {
     @ApiOperation("注册商户")
     @ApiImplicitParam(name = "merchantRegisterVO", value = "注册信息", required = true, dataType = "MerchantRegisterVO", paramType = "body")
     @PostMapping("/register")
-    public ResponseEntity<Object> saveMerchant (@RequestBody MerchantRegisterVO merchantRegisterVO) {
+    public ResponseEntity<RestResponse<MerchantRegisterVO>> saveMerchant (@RequestBody @Valid MerchantRegisterVO merchantRegisterVO) {
         BuilderUtils<RestResponse<MerchantRegisterVO>> responseBuilderUtils = BuilderUtils.of(RestResponse::new);
+        RestResponse<MerchantRegisterVO> restResponse = new RestResponse<>();
         if (StringUtils.isEmpty(merchantRegisterVO.getVerifyKey()) || StringUtils.isEmpty(merchantRegisterVO.getVerifyCode())) {
             throw new BusinessException(CommonErrorCode.E_100103);
         }
@@ -76,8 +79,8 @@ public class MerchantController {
         MerchantDto merchantDto = merchantConvert.voToDto(merchantRegisterVO);
         MerchantRegisterVO merchantRegisterVoResponse = merchantService.saveMerchant(merchantDto);
         if (!StringUtils.isEmpty(merchantRegisterVoResponse)) {
-            responseBuilderUtils.with(RestResponse::setCode, 200).with(RestResponse::setResult, merchantRegisterVoResponse);
+            restResponse = responseBuilderUtils.with(RestResponse::setCode, 200).with(RestResponse::setResult, merchantRegisterVoResponse).build();
         }
-        return ResponseEntity.ok(responseBuilderUtils);
+        return ResponseEntity.ok(restResponse);
     }
 }

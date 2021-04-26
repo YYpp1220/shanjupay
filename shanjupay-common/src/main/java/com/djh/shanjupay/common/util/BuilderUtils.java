@@ -1,5 +1,7 @@
 package com.djh.shanjupay.common.util;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -11,6 +13,7 @@ import java.util.function.Supplier;
  * @author MrMyHui
  * @date 2021/01/21
  */
+@Data
 public class BuilderUtils<T> {
 
     private final Supplier<T> instantiate;
