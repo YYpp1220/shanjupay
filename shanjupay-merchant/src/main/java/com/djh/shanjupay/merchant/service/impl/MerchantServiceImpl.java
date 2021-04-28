@@ -1,6 +1,7 @@
 package com.djh.shanjupay.merchant.service.impl;
 
 import cn.hutool.json.JSONUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.djh.shanjupay.common.domain.RestResponse;
 import com.djh.shanjupay.common.enumerate.CommonErrorCode;
 import com.djh.shanjupay.common.exception.BusinessException;
@@ -103,6 +104,13 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant> {
      * @return {@link RestResponse<MerchantDto>}
      */
     public MerchantRegisterVO saveMerchant(@Valid MerchantDto merchantDto) throws BusinessException {
+        // 验证手机号码唯一性
+        LambdaQueryWrapper<Merchant> queryWrapper = new LambdaQueryWrapper<Merchant>().eq(Merchant::getMobile, merchantDto.getMobile());
+        Integer mobileCount = merchantMapper.selectCount(queryWrapper);
+        // 存在及抛出异常
+        if (mobileCount > 0) {
+            throw new BusinessException(CommonErrorCode.E_200203);
+        }
         //将dto转成entity
         Merchant merchant = merchantConvert.dtoToEntity(merchantDto);
         //设置审核状态0‐未申请,1‐已申请待审核,2‐审核通过,3‐审核拒绝
@@ -113,7 +121,6 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant> {
             throw new BusinessException(CommonErrorCode.E_100108);
         }
         //将entity转成 dto
-        MerchantRegisterVO merchantRegisterVO = merchantConvert.entityToVo(merchant);
-        return merchantRegisterVO;
+        return merchantConvert.entityToVo(merchant);
     }
 }
