@@ -1,11 +1,11 @@
 server:
-  port: 56040
+  port: 56050
   servlet:
-    context-path: /merchant
+    context-path: /upload
 
 spring:
   application:
-    name: sj-merchant
+    name: sj-upload
   # 启用bean覆盖 spring boot2.1以上版本需指定
   main:
     allow-bean-definition-overriding: true
@@ -21,6 +21,20 @@ spring:
         # 本机nacos开发环境
 #        namespace: 67402c73-2d27-4a13-84b8-8ad1d94836b1
         cluster-name: DEFAULT
+  # springMVC文件上传配置
+  servlet:
+    multipart:
+      # 默认支持文件上传
+      enabled: true
+      # 临时文件存放目录
+      location:
+      # 是否支持写入磁盘
+      file-size-threshold: 0
+      # 最大支持上传文件大小
+      max-file-size: 1GB
+      # 最大支持请求大小
+      max-request-size: 30MB
+
 
 logging:
   config: classpath:log4j2.xml

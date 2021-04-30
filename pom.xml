@@ -24,6 +24,7 @@
         <module>shanjupay-merchant</module>
         <module>shanjupay-generator</module>
         <module>shanjupay-sms</module>
+        <module>shanjupay-upload</module>
     </modules>
 
     <!--统一版本依赖控制-->
