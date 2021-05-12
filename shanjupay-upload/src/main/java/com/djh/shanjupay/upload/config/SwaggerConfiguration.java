@@ -1,4 +1,4 @@
-package com.djh.shanjupay.sms.config;
+package com.djh.shanjupay.upload.config;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -44,8 +44,8 @@ public class SwaggerConfiguration {
 	private ApiInfo buildApiInfo() {
 		Contact contact = new Contact("刁嘉辉","","");
 		return new ApiInfoBuilder()
-				.title("聚宇验证码服务API文档")
-				.description("包含验证码、短信api")
+				.title("聚宇文件上传服务API文档")
+				.description("包含文件上传下载api")
 				.contact(contact)
 				.version("1.0.0").build();
 	}

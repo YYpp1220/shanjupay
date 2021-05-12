@@ -36,7 +36,7 @@ public class SwaggerConfiguration {
     private ApiInfo buildApiInfo() {
         Contact contact = new Contact("开发者", "", "");
         return new ApiInfoBuilder()
-                .title("闪聚支付-商户应用API文档")
+                .title("聚宇支付-商户应用API文档")
                 .description("")
                 .contact(contact)
                 .version("1.0.0")
