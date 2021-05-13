@@ -79,6 +79,7 @@ public enum CommonErrorCode implements ErrorCode {
 	 * 上传出错
 	 */
 	E_100106(100106,"上传错误"),
+	E_100109(100109, "上传图片格式有误"),
 	E_100107(100107,"发送验证码错误"),
 
 	/**

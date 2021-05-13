@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "qiniu.oss")
 public class QiniuProperty {
-    private String qiniuUrl;
+    private String url;
 
     private String accessKey;
 

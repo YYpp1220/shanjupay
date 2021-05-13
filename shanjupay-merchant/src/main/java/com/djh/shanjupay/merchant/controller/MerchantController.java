@@ -43,15 +43,16 @@ public class MerchantController {
     @Autowired
     private MerchantConvert merchantConvert;
 
-    private static  BuilderUtils<RestResponse<MerchantRegisterVO>> responseBuilderUtils = BuilderUtils.of(RestResponse::new);
-    private static  RestResponse<MerchantRegisterVO> restResponse = new RestResponse<>();
+    private static  BuilderUtils<RestResponse> responseBuilderUtils = BuilderUtils.of(RestResponse::new);
+    private static  RestResponse restResponse = new RestResponse<>();
 
     @ApiOperation(value = "根据商户id查询")
     @ApiImplicitParam(name = "merchantId", value = "商户id", dataType = "Long", required = true)
     @GetMapping("/queryById")
-    public ResponseEntity<MerchantDto> queryById (@RequestParam("merchantId") Long merchantId) {
+    public ResponseEntity<RestResponse<MerchantDto>> queryById (@RequestParam("merchantId") Long merchantId) {
         MerchantDto merchantDto = merchantService.queryById(merchantId);
-        return ResponseEntity.ok(merchantDto);
+        restResponse = responseBuilderUtils.with(RestResponse::setCode, 200).with(RestResponse::setResult, merchantDto).build();
+        return ResponseEntity.ok(restResponse);
     }
 
     /**
@@ -73,8 +74,6 @@ public class MerchantController {
     @ApiImplicitParam(name = "merchantRegisterVO", value = "注册信息", required = true, dataType = "MerchantRegisterVO", paramType = "body")
     @PostMapping("/register")
     public ResponseEntity<RestResponse<MerchantRegisterVO>> saveMerchant (@RequestBody @Valid MerchantRegisterVO merchantRegisterVO) {
-        //BuilderUtils<RestResponse<MerchantRegisterVO>> responseBuilderUtils = BuilderUtils.of(RestResponse::new);
-        //RestResponse<MerchantRegisterVO> restResponse = new RestResponse<>();
         if (StringUtils.isEmpty(merchantRegisterVO)) {
             throw new BusinessException(CommonErrorCode.E_200201);
         }

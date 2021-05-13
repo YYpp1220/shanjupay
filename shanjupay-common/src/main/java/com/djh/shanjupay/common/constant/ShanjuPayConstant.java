@@ -1,5 +1,6 @@
 package com.djh.shanjupay.common.constant;
 
+import lombok.Data;
 import lombok.Getter;
 
 /**
@@ -8,7 +9,9 @@ import lombok.Getter;
  * @author MyMrDiao
  * @date 2021/05/12
  */
-@Getter
-public class ShanjuPayConstant {
-
+public interface ShanjuPayConstant {
+    /**
+     * 上传图片格式格式
+     */
+    String[] UPLOAD_FILE_TYPE = {".jpg", ".png", ".jpeg"};
 }
