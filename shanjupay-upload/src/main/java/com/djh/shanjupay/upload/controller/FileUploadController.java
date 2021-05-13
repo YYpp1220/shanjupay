@@ -25,8 +25,8 @@ public class FileUploadController {
 
     @ApiOperation("用户资质证件上传")
     @ApiImplicitParam(name = "file", value = "文件流", dataType = "MultipartFile", required = true)
-    @PostMapping("/upload")
-    public String upload (@RequestParam("file")MultipartFile file) {
+    @PostMapping("/qiniuUpload")
+    public String qiniuUpload (@RequestParam("file") MultipartFile file) {
         return null;
     }
 }

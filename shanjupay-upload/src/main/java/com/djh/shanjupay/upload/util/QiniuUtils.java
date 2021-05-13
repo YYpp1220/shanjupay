@@ -1,5 +1,7 @@
 package com.djh.shanjupay.upload.util;
 
+import com.djh.shanjupay.common.enumerate.CommonErrorCode;
+import com.djh.shanjupay.common.exception.BusinessException;
 import com.google.gson.Gson;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
@@ -52,7 +54,7 @@ public class QiniuUtils {
             } catch (QiniuException e) {
                 e.printStackTrace();
             }
-            throw new RuntimeException(r.toString());
+            throw new BusinessException(CommonErrorCode.E_100106);
         }
     }
 }
