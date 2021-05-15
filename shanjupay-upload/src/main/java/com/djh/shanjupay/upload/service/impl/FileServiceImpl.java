@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
 import java.util.UUID;
@@ -30,18 +31,20 @@ public class FileServiceImpl implements ShanjuPayConstant {
     /**
      * qiniu oss上传
      *
-     * @param bytes    字节
-     * @param suffix 后缀
+     * @param file    spring mvc文件对象
      * @return {@link String}
      */
-    public String qiniuOssUpload (byte[] bytes, String suffix) {
+    public String qiniuOssUpload (MultipartFile file) {
+        String originalFilename = file.getOriginalFilename();
+        assert originalFilename != null;
+        String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
         if (!Arrays.asList(UPLOAD_FILE_TYPE).contains(suffix)) {
             log.error("上传图片格式有误！上传格式为{}", suffix);
             throw new BusinessException(CommonErrorCode.E_100109);
         }
         String fileName = UUID.randomUUID() + suffix;
         try {
-            QiniuUtils.uploadQiniu(qiniuProperty.getAccessKey(), qiniuProperty.getSecretKey(), qiniuProperty.getBucket(), bytes, fileName);
+            QiniuUtils.uploadQiniu(qiniuProperty.getAccessKey(), qiniuProperty.getSecretKey(), qiniuProperty.getBucket(), file.getBytes(), fileName);
         } catch (Exception e) {
             e.printStackTrace();
             throw new BusinessException(CommonErrorCode.E_100106);

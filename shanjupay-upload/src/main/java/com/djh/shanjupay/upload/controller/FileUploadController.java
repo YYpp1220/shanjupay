@@ -42,14 +42,11 @@ public class FileUploadController {
         if (StringUtils.isEmpty(file)) {
             throw new BusinessException(CommonErrorCode.E_200202);
         }
-        // 原始文件名称
-        String originalFilename = file.getOriginalFilename();
-        String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
         String fileUrl;
         try {
-            fileUrl = fileService.qiniuOssUpload(file.getBytes(), suffix);
+            fileUrl = fileService.qiniuOssUpload(file);
             restResponse = responseBuilderUtils.with(RestResponse::setCode, 200).with(RestResponse::setResult, fileUrl).build();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             throw new BusinessException(CommonErrorCode.E_100106);
         }
