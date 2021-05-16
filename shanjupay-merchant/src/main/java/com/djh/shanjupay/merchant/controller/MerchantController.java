@@ -7,9 +7,11 @@ import com.djh.shanjupay.common.exception.BusinessException;
 import com.djh.shanjupay.common.util.BuilderUtils;
 import com.djh.shanjupay.merchant.convert.MerchantConvert;
 import com.djh.shanjupay.merchant.dto.MerchantDto;
+import com.djh.shanjupay.merchant.vo.MerchantDetailVO;
 import com.djh.shanjupay.merchant.vo.MerchantRegisterVO;
 import com.djh.shanjupay.sms.entity.VerificationInfo;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -46,6 +48,12 @@ public class MerchantController {
     private static  BuilderUtils<RestResponse> responseBuilderUtils = BuilderUtils.of(RestResponse::new);
     private static  RestResponse restResponse = new RestResponse<>();
 
+    /**
+     * 根据商户id查询
+     *
+     * @param merchantId 商人id
+     * @return {@link ResponseEntity<RestResponse<MerchantDto>>}
+     */
     @ApiOperation(value = "根据商户id查询")
     @ApiImplicitParam(name = "merchantId", value = "商户id", dataType = "Long", required = true)
     @GetMapping("/queryById")
@@ -70,12 +78,18 @@ public class MerchantController {
         return ResponseEntity.ok(restResponse);
     }
 
+    /**
+     * 注册商户
+     *
+     * @param merchantRegisterVO 商人登记签证官
+     * @return {@link ResponseEntity<RestResponse<MerchantRegisterVO>>}
+     */
     @ApiOperation("注册商户")
     @ApiImplicitParam(name = "merchantRegisterVO", value = "注册信息", required = true, dataType = "MerchantRegisterVO", paramType = "body")
     @PostMapping("/register")
     public ResponseEntity<RestResponse<MerchantRegisterVO>> saveMerchant (@RequestBody @Valid MerchantRegisterVO merchantRegisterVO) {
         if (StringUtils.isEmpty(merchantRegisterVO)) {
-            throw new BusinessException(CommonErrorCode.E_200201);
+            throw new BusinessException(CommonErrorCode.E_100108);
         }
         if (StringUtils.isEmpty(merchantRegisterVO.getVerifyKey()) || StringUtils.isEmpty(merchantRegisterVO.getVerifyCode())) {
             throw new BusinessException(CommonErrorCode.E_100103);
@@ -87,5 +101,17 @@ public class MerchantController {
             restResponse = responseBuilderUtils.with(RestResponse::setCode, 200).with(RestResponse::setResult, merchantRegisterVoResponse).build();
         }
         return ResponseEntity.ok(restResponse);
+    }
+
+    /**
+     * 商户资质申请
+     *
+     * @param merchantInfo 商家信息
+     */
+    @ApiOperation("商户资质申请")
+    @ApiImplicitParams({ @ApiImplicitParam(name = "merchantInfo", value = "商户认证资料", required = true, dataType = "MerchantDetailVO", paramType = "body") })
+    @PostMapping("/my/merchants/save")
+    public void saveMerchant(@RequestBody MerchantDetailVO merchantInfo) {
+
     }
 }

@@ -46,6 +46,7 @@
         <fastjson.version>1.2.47</fastjson.version>
         <sharding.jdbc.version>4.0.0-RC1</sharding.jdbc.version>
         <alipay.version>3.7.73.ALL</alipay.version>
+        <alipay.oss.version>3.10.2</alipay.oss.version>
         <wxpay.version>3.0.10</wxpay.version>
         <weixin.java.version>3.4.0</weixin.java.version>
         <qiniu.java.version>7.2.25</qiniu.java.version>
@@ -212,6 +213,14 @@
                 <artifactId>alipay-sdk-java</artifactId>
                 <version>${alipay.version}</version>
             </dependency>
+
+            <!--阿里云oss-->
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>${alipay.oss.version}</version>
+            </dependency>
+
             <!--微信支付相关sdk-->
             <dependency>
                 <groupId>com.github.tedzhdz</groupId>

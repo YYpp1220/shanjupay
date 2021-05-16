@@ -24,4 +24,6 @@ public class AliOssProperty {
     private String bucket;
 
     private String ossDomain;
+
+    private String dir;
 }

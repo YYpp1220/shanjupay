@@ -34,17 +34,48 @@ public class FileUploadController {
     private static BuilderUtils<RestResponse> responseBuilderUtils = BuilderUtils.of(RestResponse::new);
     private static RestResponse restResponse = new RestResponse<>();
 
+    /**
+     * qiniu 上传
+     *
+     * @param file 文件
+     * @return {@link ResponseEntity<RestResponse<String>>}
+     */
     @ApiOperation("用户资质证件上传")
     @ApiImplicitParam(name = "file", value = "文件流", dataType = "MultipartFile", required = true)
     @PostMapping("/qiniuUpload")
     public ResponseEntity<RestResponse<String>> qiniuUpload (@RequestParam("file") MultipartFile file) {
         log.info("文件上传开始！文件名称{}", file.getOriginalFilename());
         if (StringUtils.isEmpty(file)) {
-            throw new BusinessException(CommonErrorCode.E_200202);
+            throw new BusinessException(CommonErrorCode.E_100108);
         }
         String fileUrl;
         try {
             fileUrl = fileService.qiniuOssUpload(file);
+            restResponse = responseBuilderUtils.with(RestResponse::setCode, 200).with(RestResponse::setResult, fileUrl).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new BusinessException(CommonErrorCode.E_100106);
+        }
+        return ResponseEntity.ok(restResponse);
+    }
+
+    /**
+     * 阿里云上传
+     *
+     * @param file 文件
+     * @return {@link ResponseEntity<RestResponse<String>>}
+     */
+    @ApiOperation("用户资质证件上传")
+    @ApiImplicitParam(name = "file", value = "文件流", dataType = "MultipartFile", required = true)
+    @PostMapping("/aliUpload")
+    public ResponseEntity<RestResponse<String>> aliUpload (@RequestParam("file") MultipartFile file) {
+        log.info("文件上传开始！文件名称{}", file.getOriginalFilename());
+        if (StringUtils.isEmpty(file)) {
+            throw new BusinessException(CommonErrorCode.E_100108);
+        }
+        String fileUrl;
+        try {
+            fileUrl = fileService.aliOssUpload(file);
             restResponse = responseBuilderUtils.with(RestResponse::setCode, 200).with(RestResponse::setResult, fileUrl).build();
         } catch (Exception e) {
             e.printStackTrace();

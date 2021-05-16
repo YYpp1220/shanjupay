@@ -63,7 +63,7 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant> {
      */
     public RestResponse<VerificationInfo> getSmsCode(String phone) throws BusinessException {
         if (StringUtils.isEmpty(phone)) {
-            throw new BusinessException(CommonErrorCode.E_200230);
+            throw new BusinessException(CommonErrorCode.E_100112);
         }
         Map<String, Object> phoneSmsCodeMap = new HashMap<>(16);
         phoneSmsCodeMap.put("mobile", phone);
@@ -109,7 +109,7 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant> {
         Integer mobileCount = merchantMapper.selectCount(queryWrapper);
         // 存在及抛出异常
         if (mobileCount > 0) {
-            throw new BusinessException(CommonErrorCode.E_200203);
+            throw new BusinessException(CommonErrorCode.E_100113);
         }
         //将dto转成entity
         Merchant merchant = merchantConvert.dtoToEntity(merchantDto);
@@ -122,5 +122,25 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant> {
         }
         //将entity转成 dto
         return merchantConvert.entityToVo(merchant);
+    }
+
+    /**
+     * 资质申请
+     *
+     * @param merchantId  商人id
+     * @param merchantDto 资质申请信息
+     */
+    public void applyMerchant (Long merchantId, MerchantDto merchantDto) {
+        if (StringUtils.isEmpty(merchantDto) || StringUtils.isEmpty(merchantId)) {
+            throw new BusinessException(CommonErrorCode.E_100108);
+        }
+        Merchant merchant = merchantMapper.selectById(merchantId);
+        if (StringUtils.isEmpty(merchant)) {
+            throw new BusinessException(CommonErrorCode.E_200002);
+        }
+        Merchant merchantUpdate = merchantConvert.dtoToEntity(merchantDto);
+        merchantUpdate.setAuditStatus("1");
+        merchantUpdate.setTenantId(merchant.getTenantId());
+        merchantMapper.updateById(merchantUpdate);
     }
 }
