@@ -10,14 +10,19 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import com.baomidou.mybatisplus.annotation.TableName;
 
+/**
+ * 应用dto
+ *
+ * @author MyMrDiao
+ * @date 2021/05/19
+ */
 @Data
-@ApiModel(value="AppDto", description="")
+@ApiModel(value="AppDto", description="应用信息")
 public class AppDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
-
+    @ApiModelProperty("应用id，新增时无需传入")
     private String appId;
 
     @ApiModelProperty(value = "商店名称")
@@ -29,7 +34,7 @@ public class AppDto implements Serializable {
     @ApiModelProperty(value = "应用公钥(RSAWithSHA256)")
     private String publicKey;
 
-    @ApiModelProperty(value = "授权回调地址")
+    @ApiModelProperty(value = "授权回调地址，创建时可不填")
     private String notifyUrl;
 
 

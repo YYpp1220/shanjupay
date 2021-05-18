@@ -5,7 +5,9 @@ import com.djh.shanjupay.common.domain.RestResponse;
 import com.djh.shanjupay.common.enumerate.CommonErrorCode;
 import com.djh.shanjupay.common.exception.BusinessException;
 import com.djh.shanjupay.common.util.BuilderUtils;
+import com.djh.shanjupay.common.util.SecurityUtil;
 import com.djh.shanjupay.merchant.convert.MerchantConvert;
+import com.djh.shanjupay.merchant.convert.MerchantDetailConvert;
 import com.djh.shanjupay.merchant.dto.MerchantDto;
 import com.djh.shanjupay.merchant.vo.MerchantDetailVO;
 import com.djh.shanjupay.merchant.vo.MerchantRegisterVO;
@@ -44,6 +46,9 @@ public class MerchantController {
 
     @Autowired
     private MerchantConvert merchantConvert;
+
+    @Autowired
+    private MerchantDetailConvert merchantDetailConvert;
 
     private static  BuilderUtils<RestResponse> responseBuilderUtils = BuilderUtils.of(RestResponse::new);
     private static  RestResponse restResponse = new RestResponse<>();
@@ -112,6 +117,11 @@ public class MerchantController {
     @ApiImplicitParams({ @ApiImplicitParam(name = "merchantInfo", value = "商户认证资料", required = true, dataType = "MerchantDetailVO", paramType = "body") })
     @PostMapping("/merchants/save")
     public void saveMerchant(@RequestBody MerchantDetailVO merchantInfo) {
-
+        Long merchantId = SecurityUtil.getMerchantId();
+        if (StringUtils.isEmpty(merchantId) || StringUtils.isEmpty(merchantInfo)) {
+            throw new BusinessException(CommonErrorCode.E_100108);
+        }
+        MerchantDto merchantDto = merchantDetailConvert.voToDto(merchantInfo);
+        merchantService.applyMerchant(merchantId, merchantDto);
     }
 }

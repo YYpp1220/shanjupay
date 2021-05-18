@@ -39,7 +39,7 @@ public class RandomUuidUtil {
     /**
      * 获得32位UUID
      */
-    private static String getUuid(){
+    public static String getUuid(){
         String uuid = UUID.randomUUID().toString();
         //去掉“-”符号
         return uuid.replaceAll("-", "");

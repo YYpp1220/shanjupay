@@ -14,13 +14,13 @@ import java.util.Random;
  *
  */
 public class RandomStringUtil {
-        /**
-         * 获取指定长度随机字符串
-         *
-         * @param length
-         * @return
-         */
-        public static String getRandomString(int length) {
+    /**
+     * 获取指定长度随机字符串
+     *
+     * @param length 长度
+     * @return {@link String}
+     */
+    public static String getRandomString(int length) {
             Random random = new Random();
             StringBuffer sb = new StringBuffer();
             for (int i = 0; i < length; i++) {
