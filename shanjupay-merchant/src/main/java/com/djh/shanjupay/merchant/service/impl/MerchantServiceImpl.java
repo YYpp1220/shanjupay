@@ -50,7 +50,7 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant> {
      * @param merchantId 商户id
      * @return {@link MerchantDto}
      */
-    public MerchantDto queryById (Long merchantId) {
+    public MerchantDto queryMerchantById (Long merchantId) {
         Merchant merchant = merchantMapper.selectById(merchantId);
         return JSONUtil.toBean(JSONUtil.toJsonStr(merchant), MerchantDto.class);
     }
@@ -131,14 +131,20 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant> {
      * @param merchantDto 资质申请信息
      */
     public void applyMerchant (Long merchantId, MerchantDto merchantDto) {
+        // 判断校验前端参数是否存在
         if (StringUtils.isEmpty(merchantDto) || StringUtils.isEmpty(merchantId)) {
             throw new BusinessException(CommonErrorCode.E_100108);
         }
+        // 根据id查询对应商户
         Merchant merchant = merchantMapper.selectById(merchantId);
         if (StringUtils.isEmpty(merchant)) {
             throw new BusinessException(CommonErrorCode.E_200002);
         }
+        // mapstruct对象转换
         Merchant merchantUpdate = merchantConvert.dtoToEntity(merchantDto);
+        // 必要信息从获取的数据填入，前端可能存在篡改参数
+        merchantUpdate.setId(merchant.getId());
+        merchantUpdate.setMobile(merchant.getMobile());
         merchantUpdate.setAuditStatus("1");
         merchantUpdate.setTenantId(merchant.getTenantId());
         merchantMapper.updateById(merchantUpdate);

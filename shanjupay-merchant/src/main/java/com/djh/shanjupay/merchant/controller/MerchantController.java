@@ -57,8 +57,8 @@ public class MerchantController {
     @ApiOperation(value = "根据商户id查询")
     @ApiImplicitParam(name = "merchantId", value = "商户id", dataType = "Long", required = true)
     @GetMapping("/queryById")
-    public ResponseEntity<RestResponse<MerchantDto>> queryById (@RequestParam("merchantId") Long merchantId) {
-        MerchantDto merchantDto = merchantService.queryById(merchantId);
+    public ResponseEntity<RestResponse<MerchantDto>> queryMerchantById (@RequestParam("merchantId") Long merchantId) {
+        MerchantDto merchantDto = merchantService.queryMerchantById(merchantId);
         restResponse = responseBuilderUtils.with(RestResponse::setCode, 200).with(RestResponse::setResult, merchantDto).build();
         return ResponseEntity.ok(restResponse);
     }
@@ -110,7 +110,7 @@ public class MerchantController {
      */
     @ApiOperation("商户资质申请")
     @ApiImplicitParams({ @ApiImplicitParam(name = "merchantInfo", value = "商户认证资料", required = true, dataType = "MerchantDetailVO", paramType = "body") })
-    @PostMapping("/my/merchants/save")
+    @PostMapping("/merchants/save")
     public void saveMerchant(@RequestBody MerchantDetailVO merchantInfo) {
 
     }

@@ -30,6 +30,7 @@ public class RestResponse<T> {
 
 	public static <T> RestResponse<T> success(T result) {
 		RestResponse<T> response = new RestResponse<T>();
+		response.setCode(200);
 		response.setResult(result);
 		return response;
 	}
