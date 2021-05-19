@@ -16,9 +16,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -58,5 +58,40 @@ public class AppController {
         }
         AppDto app = appService.createApp(merchantId, appDto);
         return ResponseEntity.ok(RestResponse.success(app));
+    }
+
+    /**
+     * 查询商户下的应用列表
+     *
+     * @return {@link ResponseEntity<RestResponse<List<AppDto>>>}
+     */
+    @ApiOperation("查询商户下的应用列表")
+    @GetMapping("/queryAppList")
+    public ResponseEntity<RestResponse<List<AppDto>>> queryAppList () {
+        Long merchantId = SecurityUtil.getMerchantId();
+        if (StringUtils.isEmpty(merchantId)) {
+            throw new BusinessException(CommonErrorCode.E_NO_AUTHORITY);
+        }
+        List<AppDto> appDtoList = appService.queryAppByMerchantId(merchantId);
+        return ResponseEntity.ok(RestResponse.success(appDtoList));
+    }
+
+    /**
+     * 根据appId获取应用的详细信息
+     *
+     * @param appId 应用程序id
+     * @return {@link ResponseEntity<RestResponse<AppDto>>}
+     */
+    @ApiOperation("根据appId获取应用的详细信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "appId", value = "商户应用id", required = true, dataType = "String", paramType = "path")
+    })
+    @GetMapping("/queryApp/{appId}")
+    public ResponseEntity<RestResponse<AppDto>> queryAppById (@PathVariable String appId) {
+        if (StringUtils.isEmpty(appId)) {
+            throw new BusinessException(CommonErrorCode.E_110006);
+        }
+        AppDto appDto = appService.getAppById(appId);
+        return ResponseEntity.ok(RestResponse.success(appDto));
     }
 }

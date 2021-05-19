@@ -24,8 +24,8 @@ import java.util.*;
  */
 public class MyBatisPlusGenerator {
     private static final String PREFIX_MODULE = "shanjupay-";
-    private static final String MODULE = "merchant";
-    private static final String MODULE_NAME = "merchant";
+    private static final String MODULE = "transaction";
+    private static final String MODULE_NAME = "transaction";
     // private static final String TO_ENTITY_PATH = "shanjupay-pojo\\shangjupay-"+ MODULE_NAME +"-pojo\\src\\main\\java\\com\\djh\\shanjupay\\"+ MODULE_NAME +"\\entity\\";
     private static final String TO_ENTITY_PATH = "\\shanjupay-pojo\\shanjupay-"+ MODULE_NAME +"-pojo";
     private static final String TO_SERVER_PATH = PREFIX_MODULE + MODULE +"\\src\\main\\java\\com\\djh\\shanjupay\\" + MODULE + "\\service\\";
@@ -74,7 +74,7 @@ public class MyBatisPlusGenerator {
 
 		// 商户服务
 		dataSourceConfig
-				.setUrl("jdbc:mysql://192.168.203.128:3306/shanjupay_merchant_service?serverTimezone=Asia/Shanghai");
+				.setUrl("jdbc:mysql://192.168.203.128:3306/shanjupay_transaction?serverTimezone=Asia/Shanghai");
 
 		// 交易服务
 //		dataSourceConfig
@@ -111,7 +111,7 @@ public class MyBatisPlusGenerator {
         // 自定义输出配置
         List<FileOutConfig> focList = new ArrayList<>();
 
-        // 自定义配置会被优先输出
+        /*// 自定义配置会被优先输出
         focList.add(new FileOutConfig(templatePath) {
             @Override
             public String outputFile(TableInfo tableInfo) {
@@ -127,9 +127,9 @@ public class MyBatisPlusGenerator {
             public String outputFile(TableInfo tableInfo) {
 
                 // 自定义输出文件名
-                return projectPath + TO_ENTITY_PATH + "/src/main/java/com/djh/shanjupay/merchant/entity/" + tableInfo.getEntityName() + StringPool.DOT_JAVA;
+                return projectPath + TO_ENTITY_PATH + "/src/main/java/com/djh/shanjupay/transaction/entity/" + tableInfo.getEntityName() + StringPool.DOT_JAVA;
             }
-        });
+        });*/
 
         globalConfig.setSwagger2(true);
         globalConfig.setEntityName("%sDto");
@@ -138,7 +138,7 @@ public class MyBatisPlusGenerator {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输出文件名
-                return projectPath + TO_ENTITY_PATH + "/src/main/java/com/djh/shanjupay/merchant/dto/" + tableInfo.getEntityName() + StringPool.DOT_JAVA;
+                return projectPath + TO_ENTITY_PATH + "/src/main/java/com/djh/shanjupay/transaction/dto/" + tableInfo.getEntityName() + StringPool.DOT_JAVA;
             }
         });
 
@@ -151,10 +151,10 @@ public class MyBatisPlusGenerator {
         // 配置自定义输出模板
         //指定自定义模板路径，注意不要带上.ftl/.vm, 会根据使用的模板引擎自动识别
         templateConfig.setEntity("");
-         templateConfig.setMapper("templates/mapper.java");
+         templateConfig.setMapper("");
         templateConfig.setService("");
-        templateConfig.setServiceImpl("templates/serviceImpl.java");
-         templateConfig.setController("templates/controller.java");
+        templateConfig.setServiceImpl("");
+         templateConfig.setController("");
 
         templateConfig.setXml(null);
         autoGenerator.setTemplate(templateConfig);

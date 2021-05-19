@@ -115,7 +115,7 @@ public class MerchantController {
      */
     @ApiOperation("商户资质申请")
     @ApiImplicitParams({ @ApiImplicitParam(name = "merchantInfo", value = "商户认证资料", required = true, dataType = "MerchantDetailVO", paramType = "body") })
-    @PostMapping("/merchants/save")
+    @PostMapping("/save")
     public void saveMerchant(@RequestBody MerchantDetailVO merchantInfo) {
         Long merchantId = SecurityUtil.getMerchantId();
         if (StringUtils.isEmpty(merchantId) || StringUtils.isEmpty(merchantInfo)) {
