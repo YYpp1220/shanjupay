@@ -64,4 +64,12 @@ public interface MapStruct<E, D, V> {
      * @return {@link List<D>}
      */
     List<D> voListToDtoList(List<V> v);
+
+    /**
+     * 实体类集合转为dto集合
+     *
+     * @param e e
+     * @return {@link List<D>}
+     */
+    List<D> entityListToDtoList(List<E> e);
 }

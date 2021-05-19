@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @RestController
-@Api(value = "商户平台‐应用管理", tags = "商户平台‐应用相关", description = "商户平台‐应用相关")
+@Api(value = "商户平台‐应用管理", tags = "商户平台‐应用相关")
 public class AppController {
     public static final String SHANJUPAY_NAME = "应用";
 

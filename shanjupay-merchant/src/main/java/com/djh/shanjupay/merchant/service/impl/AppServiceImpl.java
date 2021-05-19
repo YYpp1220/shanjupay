@@ -17,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -55,6 +57,34 @@ public class AppServiceImpl extends ServiceImpl<AppMapper, App> {
         appDto.setMerchantId(merchant.getId());
         App app = appConvert.dtoToEntity(appDto);
         appMapper.insert(app);
+        return appConvert.entityToDto(app);
+    }
+
+    /**
+     * 查询商户下的应用列表
+     *
+     * @param merchantId 商户id
+     * @return {@link List<AppDto>}
+     */
+    public List<AppDto> queryAppByMerchantId (Long merchantId) {
+        if (StringUtils.isEmpty(merchantId)) {
+            throw new BusinessException(CommonErrorCode.E_110006);
+        }
+        List<App> apps = appMapper.selectList(new QueryWrapper<App>().lambda().eq(App::getMerchantId, merchantId));
+        return appConvert.entityListToDtoList(apps);
+    }
+
+    /**
+     * 通过id获取商户应用
+     *
+     * @param id id
+     * @return {@link AppDto}
+     */
+    public AppDto getAppById (String id) {
+        if (StringUtils.isEmpty(id)) {
+            throw new BusinessException(CommonErrorCode.E_110006);
+        }
+        App app = appMapper.selectOne(new QueryWrapper<App>().lambda().eq(App::getAppId, id));
         return appConvert.entityToDto(app);
     }
 
