@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>shanjupay-sms-api</module>
+        <module>shanjupay-transaction-api</module>
     </modules>
 
     <dependencies>
