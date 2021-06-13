@@ -1,0 +1,27 @@
+server:
+  port: 10010
+
+spring:
+  application:
+    name: sj-gateway
+  # 启用bean覆盖 spring boot2.1以上版本需指定
+  main:
+    allow-bean-definition-overriding: true
+  # nacos 配置
+  cloud:
+    nacos:
+      discovery:
+        # nacos 地址
+#        server-addr: 127.0.0.1:8848
+        server-addr: 192.168.203.128:8848
+        # 公司nacos开发环境namespace
+#        namespace: 65a3eb11-8431-4479-a13a-87c938ef97ee
+        # 本机nacos开发环境
+        namespace: 67402c73-2d27-4a13-84b8-8ad1d94836b1
+        cluster-name: DEFAULT
+
+
+logging:
+  config: classpath:log4j2.xml
+  level:
+    com.djh.shanjupay.gateway: debug

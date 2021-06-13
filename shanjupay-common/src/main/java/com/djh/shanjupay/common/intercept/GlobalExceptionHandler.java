@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.NoHandlerFoundException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,7 +33,7 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(value = Exception.class)
 	@ResponseBody
-	public RestResponse<Nullable> exceptionGet(HttpServletRequest req, HttpServletResponse response , Exception e) {
+	public RestResponse<Nullable> exceptionGet(Exception e) {
 		if (e instanceof BusinessException) {
 			BusinessException be = (BusinessException) e;
 			if (CommonErrorCode.CUSTOM.equals(be.getErrorCode())){
