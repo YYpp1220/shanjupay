@@ -29,7 +29,7 @@ public class SwaggerConfiguration {
 				.apiInfo(buildApiInfo())
 				.select()
 				// 要扫描的API(Controller)基础包
-				.apis(RequestHandlerSelectors.basePackage("com.djh.shanjupay.sms.controller"))
+				.apis(RequestHandlerSelectors.basePackage("com.djh.shanjupay.upload.controller"))
 				.paths(PathSelectors.any())
 				.build();
 	}

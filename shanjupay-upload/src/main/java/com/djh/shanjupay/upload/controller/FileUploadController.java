@@ -5,6 +5,7 @@ import com.djh.shanjupay.common.enumerate.CommonErrorCode;
 import com.djh.shanjupay.common.exception.BusinessException;
 import com.djh.shanjupay.common.util.BuilderUtils;
 import com.djh.shanjupay.upload.service.impl.FileServiceImpl;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,7 @@ import java.io.IOException;
  */
 @Slf4j
 @RestController
+@Api(value = "聚宇支付-文件上传", tags = "聚宇支付-文件上传")
 public class FileUploadController {
     public static final String SHANJUPAY_NAME = "文件上传";
     @Autowired
