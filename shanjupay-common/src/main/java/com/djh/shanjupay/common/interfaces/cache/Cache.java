@@ -1,5 +1,7 @@
 package com.djh.shanjupay.common.interfaces.cache;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -42,6 +44,14 @@ public interface Cache {
      */
     void del(String key);
 
+    /**
+     * 删除多个key，返回删除key的个数
+     *
+     * @param delKeys keys
+     * @return {@link Long}
+     */
+    Long delMulti(String... delKeys);
+
 
     /**
      * 简单的字符串设置
@@ -61,6 +71,22 @@ public interface Cache {
     void set(String key, String value, Integer expiration);
 
     /**
+     * 批量设置redis键值，key值存在会覆盖原值
+     *
+     * @param map keysValues
+     * @return {@link String}
+     */
+    void mset(Map<String, String> map);
+
+    /**
+     * 批量插入，如果里面的所有key都不存在，则全部插入，返回true，如果其中一个在redis中已存在，全不插入，返回false
+     *
+     * @param map 地图
+     * @return {@link Boolean}
+     */
+    Boolean mIsSet(Map<String, String> map);
+
+    /**
      * 返回key所关联的字符串值
      *
      * @param key 关键
@@ -68,6 +94,21 @@ public interface Cache {
      */
     String get(String key);
 
+    /**
+     * 批量获取redis键值
+     *
+     * @param keys 键
+     * @return {@link List<String>}
+     */
+    List<String> mget(String... keys);
+
+    /**
+     * 获取过期剩余时间
+     *
+     * @param key 关键
+     * @return {@link Long}
+     */
+    Long ttl(String key);
 
     /**
      * key seconds 为给定key设置生存时间。当key过期时，它会被自动删除。
@@ -115,5 +156,21 @@ public interface Cache {
      */
     Long incrBy(String key, Long delta);
 
+    /**
+     * 键值自减
+     *
+     * @param key 关键
+     * @return {@link Long}
+     */
+    Long decr(String key);
 
+    /**
+     * 脚本执行
+     *
+     * @param script 脚本
+     * @param keys   键
+     * @param args   arg游戏
+     * @return {@link Object}
+     */
+    Object eval(String script, List<String> keys, List<String> args);
 }
