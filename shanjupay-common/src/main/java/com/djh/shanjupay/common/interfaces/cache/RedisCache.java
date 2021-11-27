@@ -1,7 +1,12 @@
 package com.djh.shanjupay.common.interfaces.cache;
 
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
+import org.springframework.data.redis.core.script.RedisScript;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -41,6 +46,11 @@ public class RedisCache implements Cache {
 	}
 
 	@Override
+	public Long delMulti(String... delKeys) {
+		return redisTemplate.opsForValue().getOperations().delete(Arrays.asList(delKeys));
+	}
+
+	@Override
 	public void set(String key, String value) {
 		redisTemplate.opsForValue().set(key, value);
 	}
@@ -51,8 +61,28 @@ public class RedisCache implements Cache {
 	}
 
 	@Override
+	public void mset(Map<String, String> map) {
+		redisTemplate.opsForValue().multiSet(map);
+	}
+
+	@Override
+	public Boolean mIsSet(Map<String, String> map) {
+		return redisTemplate.opsForValue().multiSetIfAbsent(map);
+	}
+
+	@Override
 	public String get(String key) {
 		return redisTemplate.opsForValue().get(key);
+	}
+
+	@Override
+	public List<String> mget(String... keys) {
+		return redisTemplate.opsForValue().multiGet(Arrays.asList(keys));
+	}
+
+	@Override
+	public Long ttl(String key) {
+		return redisTemplate.opsForValue().getOperations().getExpire(key);
 	}
 
 	@Override
@@ -81,4 +111,14 @@ public class RedisCache implements Cache {
 		return redisTemplate.opsForValue().increment(key, delta);
 	}
 
+	@Override
+	public Long decr(String key) {
+		return redisTemplate.opsForValue().decrement(key);
+	}
+
+	@Override
+	public Object eval(String script, List<String> keys, List<String> args) {
+		RedisScript<Long> redisScript = new DefaultRedisScript<>(script, Long.class);
+		return redisTemplate.execute(redisScript, keys, args);
+	}
 }
