@@ -1,6 +1,6 @@
 <template>
   <div class="order-container">
-      订单分布
+    订单分布
   </div>
 </template>
 

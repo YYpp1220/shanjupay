@@ -25,7 +25,7 @@ const payRoutes: RouteConfig = {
       component: () => import('@/views/pay/set.vue'),
       meta: {
         title: '配置参数',
-        hidden:true
+        hidden: true
       }
     },
     {
