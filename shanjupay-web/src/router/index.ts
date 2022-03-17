@@ -40,13 +40,12 @@ export const constantRoutes: RouteConfig[] = [
   //              /* webpackChunkName: "404" */ '@/views/workbench/index.vue'
   //            ),
   //   meta: { hidden: true }
-  // }, 
+  // },
   {
     path: '/',
     component: () => import('@/views/workbench/index.vue'),
     meta: { hidden: true, title: '工作台' }
-      
-    
+
   }
 ]
 

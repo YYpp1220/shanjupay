@@ -1,114 +1,167 @@
 <template>
   <div class="work-container">
     <div class="bg">
-
-        <div class="personalInfo">
-            <img src="../../../public/img/head.png" alt="">
-             <div>
-                 <p>你好，{{username}}</p>
-                 <p>账号：{{mobile}}</p>
-                 <p><span>服务到期时间:2025.12.30</span><button>续费</button><button>升级</button></p>
-             </div>
+      <div class="personalInfo">
+        <img
+          src="../../../public/img/head.png"
+          alt=""
+        >
+        <div>
+          <p>你好，{{ username }}</p>
+          <p>账号：{{ mobile }}</p>
+          <p><span>服务到期时间:2025.12.30</span><button>续费</button><button>升级</button></p>
         </div>
+      </div>
     </div>
     <div class="content">
-        <div class="deal">
-            <div><p class="tables"><span class="active">本日交易数据</span><span>昨日交易数据</span></p><p class="more"><span><img src="../../../public/img/more.png" alt="">更多</span><span><img src="../../../public/img/circle.png" alt="">更新</span></p></div>
-            <ul>
-                <li>    &nbsp; </li>
-                <li>成功交易金额</li>
-                <li>成功交易金额</li>
-                <li>转换率</li>
-                <li>退款笔数</li>
-                <li>手续费</li>
-            </ul>
-            <ul class="seoncd">
-                <li>收款数据</li>
-                <li>7.288.00</li>
-                <li>2134</li>
-                <li>13%</li>
-                <li>2</li>
-                <li>123.00</li>
-            </ul>
-            <ul class="third">
-                <li>打款业务数据</li>
-                <li>0.00</li>
-                <li>0.00</li>
-                <li>0.00</li>
-                <li>一</li>
-                <li>一</li>
-            </ul>
+      <div class="deal">
+        <div>
+          <p class="tables">
+            <span class="active">本日交易数据</span><span>昨日交易数据</span>
+          </p><p class="more">
+            <span><img
+              src="../../../public/img/more.png"
+              alt=""
+            >更多</span><span><img
+              src="../../../public/img/circle.png"
+              alt=""
+            >更新</span>
+          </p>
         </div>
-        <div class="list">
-            <div class="detail lefts">
-                <p>基础模块</p>
-                <div class="modules">
-                    <div class="system" @click="goPay">
-                        <img src="../../../public/img/list_1.png" alt="">
-                        <p>支付应用系统</p>
-                    </div>
-                    <div class="appliaction">
-                        <img src="../../../public/img/list_2.png" alt="">
-                        <p>渠道待申请</p>
-                    </div>
-                    <div class="morethan">
-                        <img src="../../../public/img/list_3.png" alt="">
-                        <p>更多</p>
-                    </div>
-                </div>
+        <ul>
+          <li>    &nbsp; </li>
+          <li>成功交易金额</li>
+          <li>成功交易金额</li>
+          <li>转换率</li>
+          <li>退款笔数</li>
+          <li>手续费</li>
+        </ul>
+        <ul class="seoncd">
+          <li>收款数据</li>
+          <li>7.288.00</li>
+          <li>2134</li>
+          <li>13%</li>
+          <li>2</li>
+          <li>123.00</li>
+        </ul>
+        <ul class="third">
+          <li>打款业务数据</li>
+          <li>0.00</li>
+          <li>0.00</li>
+          <li>0.00</li>
+          <li>一</li>
+          <li>一</li>
+        </ul>
+      </div>
+      <div class="list">
+        <div class="detail lefts">
+          <p>基础模块</p>
+          <div class="modules">
+            <div
+              class="system"
+              @click="goPay"
+            >
+              <img
+                src="../../../public/img/list_1.png"
+                alt=""
+              >
+              <p>支付应用系统</p>
             </div>
-            <div class="detail">
-                <p>高级模块</p>
-                <div class="modules">
-                    <div class="system">
-                        <img src="../../../public/img/list_1.png" alt="">
-                        <p>CEO看板</p>
-                    </div>
-                    <div class="appliaction">
-                        <img src="../../../public/img/list_2.png" alt="">
-                        <p>用户系统</p>
-                    </div>
-                    <div class="morethan">
-                        <img src="../../../public/img/list_3.png" alt="">
-                        <p>更多</p>
-                    </div>
-                </div>
+            <div class="appliaction">
+              <img
+                src="../../../public/img/list_2.png"
+                alt=""
+              >
+              <p>渠道待申请</p>
             </div>
-            <div class="detail lefts">
-                <p>支付场景</p>
-                <div class="modules">
-                    <div class="system">
-                        <img src="../../../public/img/list_1.png" alt="">
-                        <p>跨境收款</p>
-                    </div>
-                    <div class="appliaction">
-                        <img src="../../../public/img/list_2.png" alt="">
-                        <p>企业打款</p>
-                    </div>
-                    <div class="morethan">
-                        <img src="../../../public/img/list_3.png" alt="">
-                        <p>更多</p>
-                    </div>
-                </div>
+            <div class="morethan">
+              <img
+                src="../../../public/img/list_3.png"
+                alt=""
+              >
+              <p>更多</p>
             </div>
-            <div class="detail">
-                <p>账户相关</p>
-                <div class="modules">
-                    <div class="system">
-                        <img src="../../../public/img/list_1.png" alt="">
-                        <p>财务中心</p>
-                    </div>
-                    <div class="appliaction">
-                        <img src="../../../public/img/list_2.png" alt="">
-                        <p>账户中心</p>
-                    </div> 
-                    <div class="morethan">
-                        <img src="../../../public/img/list_3.png" alt="">
-                        <p>更多</p>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+        <div class="detail">
+          <p>高级模块</p>
+          <div class="modules">
+            <div class="system">
+              <img
+                src="../../../public/img/list_1.png"
+                alt=""
+              >
+              <p>CEO看板</p>
+            </div>
+            <div class="appliaction">
+              <img
+                src="../../../public/img/list_2.png"
+                alt=""
+              >
+              <p>用户系统</p>
+            </div>
+            <div class="morethan">
+              <img
+                src="../../../public/img/list_3.png"
+                alt=""
+              >
+              <p>更多</p>
+            </div>
+          </div>
+        </div>
+        <div class="detail lefts">
+          <p>支付场景</p>
+          <div class="modules">
+            <div class="system">
+              <img
+                src="../../../public/img/list_1.png"
+                alt=""
+              >
+              <p>跨境收款</p>
+            </div>
+            <div class="appliaction">
+              <img
+                src="../../../public/img/list_2.png"
+                alt=""
+              >
+              <p>企业打款</p>
+            </div>
+            <div class="morethan">
+              <img
+                src="../../../public/img/list_3.png"
+                alt=""
+              >
+              <p>更多</p>
+            </div>
+          </div>
+        </div>
+        <div class="detail">
+          <p>账户相关</p>
+          <div class="modules">
+            <div class="system">
+              <img
+                src="../../../public/img/list_1.png"
+                alt=""
+              >
+              <p>财务中心</p>
+            </div>
+            <div class="appliaction">
+              <img
+                src="../../../public/img/list_2.png"
+                alt=""
+              >
+              <p>账户中心</p>
+            </div>
+            <div class="morethan">
+              <img
+                src="../../../public/img/list_3.png"
+                alt=""
+              >
+              <p>更多</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -127,23 +180,22 @@ export default class extends Vue {
     private username :string = ''
     private mobile : string = ''
     private list = {}
- 
-    created () {
-        this.getLists()
-        this.username = localStorage.getItem('username')!
-        this.mobile = localStorage.getItem('mobile')!
-    } 
-    goPay () {
-        if (this.list.auditStatus === '0') {
-            this.$router.push('/finance/approve')
-        } else {
-            this.$router.push('/finance/index')
-        }
-        
+
+    created() {
+      this.getLists()
+      this.username = localStorage.getItem('username')!
+      this.mobile = localStorage.getItem('mobile')!
     }
-    private async getLists () {
-        this.list = await getList()
-        console.log(this.list)
+    goPay() {
+      if (this.list.auditStatus === '0') {
+        this.$router.push('/finance/approve')
+      } else {
+        this.$router.push('/finance/index')
+      }
+    }
+    private async getLists() {
+      this.list = await getList()
+      console.log(this.list)
     }
 }
 </script>
@@ -181,7 +233,7 @@ html {
                     text-align: center;
                     background: rgba(0,0,0,0.2);
                     border-radius: 50px;
-                    
+
                 }
             }
             .personalInfo {
@@ -207,7 +259,7 @@ html {
                     }
                     p:nth-child(3) {
                         font-size: 16px;
-                       
+
                         margin-top: 39px;
                         span {
                             opacity: 0.6;
@@ -274,7 +326,6 @@ html {
                         }
                     }
 
-                  
                     .more {
                         float: right;
                         font-family:PingFangSC-Regular,PingFangSC;

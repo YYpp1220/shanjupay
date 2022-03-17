@@ -1,51 +1,51 @@
 <template>
   <div class="login-container">
     <div class="loginbox">
+      <div class="rights">
+        <p class="title">
+          账户密码登录
+        </p>
+        <el-form
+          v-if="!flag"
+          ref="loginForm"
+          :model="loginForm"
+          class="login-form"
+          autocomplete="on"
+          label-position="left"
+        >
+          <el-form-item prop="username">
+            <el-input
+              ref="username"
+              v-model="loginForm.usernames"
+              name="username"
+              type="text"
+              autocomplete="on"
+              placeholder="手机号/用户名"
+            />
+          </el-form-item>
 
-        <div class="rights">
-            <p class="title">账户密码登录</p>
-            <el-form
-            ref="loginForm"
-            :model="loginForm" 
-            class="login-form"
-            autocomplete="on"
-            label-position="left"
-            v-if="!flag"
+          <el-form-item prop="password">
+            <el-input
+              :key="passwordType"
+              ref="password"
+              v-model="loginForm.password"
+              :type="passwordType"
+              placeholder="请输入密码"
+              name="password"
+              autocomplete="on"
+              @keyup.enter.native="handleLogin"
+            />
+          </el-form-item>
+
+          <el-button
+            type="primary"
+            style="width:100%; margin-top:24px;height:56px"
+            @click.native.prevent="handleLogin"
           >
-            <el-form-item prop="username">
-              <el-input
-                ref="username"
-                name="username"
-                v-model="loginForm.usernames"
-                type="text"
-                autocomplete="on"
-                placeholder="手机号/用户名"
-              />
-            </el-form-item>
-
-            <el-form-item prop="password">
-              <el-input
-                :key="passwordType"
-                ref="password"
-                :type="passwordType"
-                v-model="loginForm.password"
-                placeholder="请输入密码"
-                name="password"
-                autocomplete="on"
-                @keyup.enter.native="handleLogin"
-              />
-            </el-form-item>
-
-            <el-button
-              type="primary"
-              style="width:100%; margin-top:24px;height:56px"
-              @click.native.prevent="handleLogin"
-            >
-              登录
-            </el-button>
-          </el-form>
-        </div>
-
+            登录
+          </el-button>
+        </el-form>
+      </div>
     </div>
   </div>
 </template>
@@ -54,22 +54,21 @@
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import { Route } from 'vue-router'
 import { Dictionary } from 'vuex'
-import { login,getLoginCode,getMsgCode,registryData } from '@/api/users'
-import { Form as ElForm, Input } from 'element-ui'
+import { login, getLoginCode, getMsgCode, registryData } from '@/api/users'
+import { Form as ElForm, Input, Message } from 'element-ui'
 import { UserModule } from '@/store/modules/user'
-import { Message } from 'element-ui'
-import { setTimeout } from 'timers';
+
+import { setTimeout } from 'timers'
 
 @Component({
   name: 'Login'
 })
 export default class extends Vue {
-
   private loginForm = {
     usernames: 'aaaa',
     password: '123456'
   }
-  
+
   private passwordType = 'password'
   private loading = false
   private showDialog = false
@@ -114,15 +113,15 @@ export default class extends Vue {
   }
 
   private handleLogin() {
-    localStorage.setItem('username',this.loginForm.usernames);
-    localStorage.setItem('password',this.loginForm.password);
+    localStorage.setItem('username', this.loginForm.usernames)
+    localStorage.setItem('password', this.loginForm.password)
     if (this.loginForm.usernames === '' || this.loginForm.password === '') {
-       Message({
-        message: "账号或密码不能为空",
+      Message({
+        message: '账号或密码不能为空',
         type: 'error',
         duration: 2 * 1000
       })
-      return;
+      return
     }
     (this.$refs.loginForm as ElForm).validate(async(valid: boolean) => {
       if (valid) {
@@ -155,7 +154,6 @@ export default class extends Vue {
 <style lang="scss">
 // References: https://www.zhangxinxu.com/wordpress/2018/01/css-caret-color-first-line/
 
-
 .login-container {
   .el-input {
     display: inline-block;
@@ -171,7 +169,7 @@ export default class extends Vue {
       &:-webkit-autofill {
         box-shadow: 0 0 0px 1000px $loginBg inset !important;
         -webkit-text-fill-color: #fff !important;
-      } 
+      }
     }
   }
   .el-form-item:nth-child(2) {
@@ -208,8 +206,7 @@ export default class extends Vue {
   .loginbox {
     width:100%;
     height: 100%;
-    
-  
+
     .rights {
       width:450px;
       height: 435px;
@@ -264,7 +261,7 @@ export default class extends Vue {
 
         .getCode {
           margin-left:10px;
-          cursor:pointer;      
+          cursor:pointer;
           outline: none;
           border: 0;
           background-color: transparent;
@@ -283,8 +280,6 @@ export default class extends Vue {
       cursor: pointer;
     }
   }
-
-  
 
   .svg-container {
     padding: 6px 5px 6px 15px;

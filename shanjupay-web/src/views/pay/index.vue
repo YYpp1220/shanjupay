@@ -1,54 +1,98 @@
 <template>
   <div class="app-container">
-      <h3>我的支付</h3>
-    <el-row type="flex" justify="end" class="add">
-      <el-button type="primary" size="medium" @click="openTaskDialog" id="addBtn">创建应用</el-button>
+    <h3>我的支付</h3>
+    <el-row
+      type="flex"
+      justify="end"
+      class="add"
+    >
+      <el-button
+        id="addBtn"
+        type="primary"
+        size="medium"
+        @click="openTaskDialog"
+      >
+        创建应用
+      </el-button>
     </el-row>
     <el-table
       style="width: 100%"
       :data="list"
-      :header-cell-style="{color:'#5373e0',background:'#f3f6fb'}"
+      :header-cell-style="{color: '#5373e0',background: '#f3f6fb'}"
     >
-       <el-table-column width="center" align="center" label="应用ID">
+      <el-table-column
+        width="center"
+        align="center"
+        label="应用ID"
+      >
         <template slot-scope="scope">
-          <span>{{ scope.row. appId}}</span>
+          <span>{{ scope.row. appId }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="应用名称">
+      <el-table-column
+        align="center"
+        label="应用名称"
+      >
         <template slot-scope="scope">
           <span>{{ scope.row.appName }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="应用公钥">
+      <el-table-column
+        align="center"
+        label="应用公钥"
+      >
         <template slot-scope="scope">
           <span>{{ scope.row.publicKey }}</span>
         </template>
       </el-table-column>
       <el-table-column
-      fixed="right"
-      label="获取支付参数"
-      width="150"
-      align="center">
-      <template slot-scope="scope">
-        <el-button @click="getDetail(scope.row)" type="text" size="small">获取</el-button>
-      </template>
-    </el-table-column>
+        fixed="right"
+        label="获取支付参数"
+        width="150"
+        align="center"
+      >
+        <template slot-scope="scope">
+          <el-button
+            type="text"
+            size="small"
+            @click="getDetail(scope.row)"
+          >
+            获取
+          </el-button>
+        </template>
+      </el-table-column>
 
-     <el-table-column
-      fixed="right"
-      label="操作"
-      width="150"
-      align="center">
-      <template slot-scope="scope">
-        <el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
-        <el-button @click="setData(scope.row)" type="text" size="small">配置</el-button>
-      </template>
-    </el-table-column>
+      <el-table-column
+        fixed="right"
+        label="操作"
+        width="150"
+        align="center"
+      >
+        <template slot-scope="scope">
+          <el-button
+            type="text"
+            size="small"
+            @click="handleClick(scope.row)"
+          >
+            编辑
+          </el-button>
+          <el-button
+            type="text"
+            size="small"
+            @click="setData(scope.row)"
+          >
+            配置
+          </el-button>
+        </template>
+      </el-table-column>
     </el-table>
-      <getPayParams :dialogVisible.sync="dialogVisible" :appId="appIds"></getPayParams>
-     <!-- <pagination
+    <getPayParams
+      :dialog-visible.sync="dialogVisible"
+      :app-id="appIds"
+    />
+    <!-- <pagination
       v-show="total>0"
       :total="total"
       :page="1"
@@ -60,16 +104,16 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import Pagination from "@/components/Pagination/index.vue";
+import Pagination from '@/components/Pagination/index.vue'
 import { Message } from 'element-ui'
 import { getAppList } from '@/api/pay.ts'
 import getPayParams from '@/views/pay/getPayParams.vue'
-import QrcodeDecoder from 'qrcode-decoder';
+import QrcodeDecoder from 'qrcode-decoder'
 @Component({
   name: 'manage',
   components: {
-      Pagination,
-      getPayParams
+    Pagination,
+    getPayParams
   }
 })
 export default class extends Vue {
@@ -77,37 +121,36 @@ export default class extends Vue {
     private list:any[] = []
     private dialogVisible: boolean = false;
     private appIds:string = ''
-    created () {
-        this.getList()
+    created() {
+      this.getList()
     }
 
-    private async getList () {
-        this.list = await getAppList()
-        this.total = this.list.length
+    private async getList() {
+      this.list = await getAppList()
+      this.total = this.list.length
     }
 
-    private openTaskDialog () {
+    private openTaskDialog() {
       this.$router.push({
-        path:`/pay/set/0/0`
+        path: `/pay/set/0/0`
       })
     }
 
-    private handleClick (value:any) {
+    private handleClick(value:any) {
       this.$router.push({
-        path:`/pay/set/${value.appId}/0`
+        path: `/pay/set/${value.appId}/0`
       })
     }
 
-    private  getDetail (value:any) {
-      this.dialogVisible = true;
-      this.appIds = value.appId;
+    private getDetail(value:any) {
+      this.dialogVisible = true
+      this.appIds = value.appId
     }
 
-    private setData (value:any) {
+    private setData(value:any) {
       this.$router.push({
-        path:`/pay/set/${value.appId}/1`
+        path: `/pay/set/${value.appId}/1`
       })
-
     }
 }
 </script>
@@ -125,7 +168,7 @@ export default class extends Vue {
         background: white;
         height: 100%;
     }
-  
+
   .app-container #reset {
     background: #ff9540;
     border-color: #ff9540;

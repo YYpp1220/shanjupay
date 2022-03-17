@@ -1,140 +1,165 @@
 <template>
   <div class="login-container">
     <div class="loginbox">
+      <div
+        v-if="!isRegistry"
+        class="rights"
+      >
+        <p class="title">
+          <span
+            :class="flag?'':'active'"
+            class="username"
+            @click="goAccount"
+          >账户密码登录</span><span
+            class="tel"
+            :class="flag?'active':''"
+            @click="goPhone"
+          >手机号登录</span>
+        </p>
+        <el-form
+          v-if="!flag"
+          ref="loginForm"
+          :model="loginForm"
+          class="login-form"
+          autocomplete="on"
+          label-position="left"
+        >
+          <el-form-item prop="username">
+            <el-input
+              ref="username"
+              v-model="loginForm.usernames"
+              name="username"
+              type="text"
+              autocomplete="on"
+              placeholder="手机号/用户名"
+            />
+          </el-form-item>
 
-        <div class="rights"  v-if="!isRegistry">
+          <el-form-item prop="password">
+            <el-input
+              :key="passwordType"
+              ref="password"
+              v-model="loginForm.password"
+              :type="passwordType"
+              placeholder="请输入密码"
+              name="password"
+              autocomplete="on"
+              @keyup.enter.native="handleLogin"
+            />
+          </el-form-item>
 
-            <p class="title"><span :class="flag?'':'active'" class="username" @click="goAccount">账户密码登录</span><span class="tel" :class="flag?'active':''" @click="goPhone">手机号登录</span></p>
-            <el-form
-            ref="loginForm"
-            :model="loginForm" 
-            class="login-form"
-            autocomplete="on"
-            label-position="left"
-            v-if="!flag"
+          <el-button
+            type="primary"
+            style="width:100%; margin-top:24px;height:56px"
+            @click.native.prevent="handleLogin"
           >
+            登录
+          </el-button>
+        </el-form>
+        <el-form
+          v-if="flag"
+          ref="loginForm"
+          :model="loginForm"
+          class="login-form"
+          autocomplete="on"
+          label-position="left"
+        >
+          <el-form-item prop="username">
+            <el-input
+              ref="username"
+              v-model="loginForms.phone"
+              name="username"
+              type="text"
+              autocomplete="on"
+              placeholder="请输入手机号"
+            />
+          </el-form-item>
 
-            <el-form-item prop="username">
-              <el-input
-                ref="username"
-                name="username"
-                v-model="loginForm.usernames"
-                type="text"
-                autocomplete="on"
-                placeholder="手机号/用户名"
-              />
-            </el-form-item>
+          <el-form-item prop="password">
+            <el-input
+              :key="passwordType"
+              ref="password"
+              v-model="loginForms.code"
+              :type="passwordType"
+              placeholder="请输入验证码"
+              name="password"
+              autocomplete="on"
+            />
+            <span
+              class="getCodes"
+              @click="getCodes"
+            >{{ codes }}</span>
+          </el-form-item>
 
-            <el-form-item prop="password">
-              <el-input
-                :key="passwordType"
-                ref="password"
-                :type="passwordType"
-                v-model="loginForm.password"
-                placeholder="请输入密码"
-                name="password"
-                autocomplete="on"
-                @keyup.enter.native="handleLogin"
-              />
-            </el-form-item>
-
-            <el-button
-              type="primary"
-              style="width:100%; margin-top:24px;height:56px"
-              @click.native.prevent="handleLogin"
-            >
-              登录
-            </el-button>
-          </el-form>
-          <el-form
-            ref="loginForm"
-            :model="loginForm" 
-            class="login-form"
-            autocomplete="on"
-            label-position="left"
-            v-if="flag"
+          <el-button
+            type="primary"
+            style="width:100%; margin-top:24px;height:56px"
+            @click.native.prevent="handleLogins"
           >
+            登录
+          </el-button>
+        </el-form>
+        <p
+          v-if="!isRegistry"
+          class="bottom"
+        >
+          <span @click="registry">注册账号</span>
+        </p>
+      </div>
+      <div
+        v-if="isRegistry"
+        class="registryFrom"
+      >
+        <p class="registrys">
+          注册账户
+        </p>
+        <el-form
+          v-if="isRegistry"
+          label-position="left"
+        >
+          <el-form-item>
+            <el-input
+              v-model="registryForm.username"
+              type="text"
+              placeholder="请输入用户名"
+            />
+          </el-form-item>
 
-            <el-form-item prop="username">
-              <el-input
-                ref="username"
-                name="username"
-                v-model="loginForms.phone"
-                type="text"
-                autocomplete="on"
-                placeholder="请输入手机号"
-              />
-            </el-form-item>
+          <el-form-item>
+            <el-input
+              v-model="registryForm.password"
+              placeholder="请输入密码"
+              type="password"
+            />
+          </el-form-item>
 
-            <el-form-item prop="password">
-              <el-input
-                :key="passwordType"
-                ref="password"
-                :type="passwordType"
-                v-model="loginForms.code"
-                placeholder="请输入验证码"
-                name="password"
-                autocomplete="on"
-              />
-              <span class="getCodes" @click="getCodes">{{codes}}</span>
-            </el-form-item>
+          <el-form-item>
+            <el-input
+              v-model="registryForm.mobile"
+              placeholder="请输入手机号"
+            />
+          </el-form-item>
 
-            <el-button
-              type="primary"
-              style="width:100%; margin-top:24px;height:56px"
-              @click.native.prevent="handleLogins"
-            >
-              登录
-            </el-button>
-          </el-form>
-          <p class="bottom" v-if="!isRegistry"><span @click="registry">注册账号</span></p>
-        </div>
-          <div class="registryFrom"  v-if="isRegistry">
-            <p class="registrys">注册账户</p>
-            <el-form
-              label-position="left"
-              v-if="isRegistry"
-            >
-              <el-form-item>
-                <el-input
-                  v-model="registryForm.username"
-                  type="text" 
-                  placeholder="请输入用户名"
-                />
-              </el-form-item>
+          <el-form-item>
+            <el-input
+              v-model="registryForm.verifiyCode"
+              placeholder="请输入验证码"
+            />
+            <span
+              class="getCode"
+              @click="getCode"
+            >{{ content }}</span>
+          </el-form-item>
 
-              <el-form-item>
-                <el-input
-                  v-model="registryForm.password"
-                  placeholder="请输入密码"
-                  type="password"
-                />
-              </el-form-item>
-
-              <el-form-item>
-                <el-input
-                  v-model="registryForm.mobile"
-                  placeholder="请输入手机号"      
-                />
-              </el-form-item>
-
-              <el-form-item>
-                <el-input
-                  v-model="registryForm.verifiyCode"
-                  placeholder="请输入验证码"
-                />
-                <span class="getCode" @click="getCode">{{content}}</span>
-              </el-form-item>
-
-              <el-button
-                type="primary"
-                style="width:100%; margin-top:24px;height:56px"
-                @click.native.prevent="goRegistry"
-              >
-                注册
-              </el-button>
-            </el-form>
-          </div>
+          <el-button
+            type="primary"
+            style="width:100%; margin-top:24px;height:56px"
+            @click.native.prevent="goRegistry"
+          >
+            注册
+          </el-button>
+        </el-form>
+      </div>
     </div>
   </div>
 </template>
@@ -143,31 +168,30 @@
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import { Route } from 'vue-router'
 import { Dictionary } from 'vuex'
-import { login,getLoginCode,getMsgCode,registryData } from '@/api/users'
-import { Form as ElForm, Input } from 'element-ui'
+import { login, getLoginCode, getMsgCode, registryData } from '@/api/users'
+import { Form as ElForm, Input, Message } from 'element-ui'
 import { UserModule } from '@/store/modules/user'
-import { Message } from 'element-ui'
-import { setTimeout } from 'timers';
+
+import { setTimeout } from 'timers'
 
 @Component({
   name: 'Login'
 })
 export default class extends Vue {
-
   private loginForm = {
     usernames: 'aaaa',
     password: '123456'
   }
-  
+
   private loginForms = {
-    phone:'',
-    code:'',
-    smsKey:''
+    phone: '',
+    code: '',
+    smsKey: ''
   }
 
   private registryForm = {
-    mobile:"",
-    usernmae:'',
+    mobile: '',
+    usernmae: '',
     password: '',
     verifiykey: '',
     verifiyCode: ''
@@ -204,101 +228,98 @@ export default class extends Vue {
     }
   }
 
-  private goAccount () {
-    this.flag = false;
+  private goAccount() {
+    this.flag = false
     this.$forceUpdate()
   }
 
-  private goPhone () {
-    this.flag = true;
+  private goPhone() {
+    this.flag = true
     this.$forceUpdate()
   }
 
-  private registry () {
-      this.isRegistry = true;
+  private registry() {
+    this.isRegistry = true
   }
 
-  private  async getCodes () {
-      if (this.loginForms.phone === '') {
-        Message({
-          message: "手机号不能为空",
-          type: 'error',
-          duration: 2 * 1000
-        })
-        return;
+  private async getCodes() {
+    if (this.loginForms.phone === '') {
+      Message({
+        message: '手机号不能为空',
+        type: 'error',
+        duration: 2 * 1000
+      })
+      return
+    }
+    if (!this.canClicks) return // 改动的是这两行代码,限制点击
+    this.canClicks = false
+    this.codes = this.totalTimes + 's后重新发送' // 这里解决60秒不见了的问题
+    this.cloak = setInterval(() => {
+      this.totalTimes--
+      if (this.totalTimes > 0) {
+        this.codes = this.totalTimes + 's后重新发送'
       }
-      if (!this.canClicks) return  //改动的是这两行代码,限制点击
-      this.canClicks = false
-      this.codes = this.totalTimes + 's后重新发送' //这里解决60秒不见了的问题
-      this.cloak = setInterval(() => {
-        this.totalTimes--
-        if (this.totalTimes > 0) {
-          this.codes = this.totalTimes + 's后重新发送'
-        }
-        if (this.totalTimes <= 0) {     //当倒计时小于等于0时清除定时器
-          window.clearInterval(this.cloak)
-          this.codes = '重新发送验证码';
-          this.totalTimes = 60;
-          this.canClicks = true  //这里重新开启
-        }
-      },1000)
+      if (this.totalTimes <= 0) { // 当倒计时小于等于0时清除定时器
+        window.clearInterval(this.cloak)
+        this.codes = '重新发送验证码'
+        this.totalTimes = 60
+        this.canClicks = true // 这里重新开启
+      }
+    }, 1000)
 
     let res = await getLoginCode(this.loginForms.phone)
     this.loginForms.smsKey = res
   }
 
-  private async getCode () {
-    if(this.registryForm.mobile === '') {
+  private async getCode() {
+    if (this.registryForm.mobile === '') {
       Message({
-        message: "手机号不能为空",
-          type: 'error',
-          duration: 2 * 1000
-        })
-        return;
+        message: '手机号不能为空',
+        type: 'error',
+        duration: 2 * 1000
+      })
+      return
     }
-     if (!this.canClick) return  //改动的是这两行代码,限制点击
-        this.canClick = false
-        this.content = this.totalTime + 's后重新发送' //这里解决60秒不见了的问题
-        this.cloak = setInterval(() => {
-              this.totalTime--
-          if (this.totalTime > 0) {
-            this.content = this.totalTime + 's后重新发送'
-          }
-          if (this.totalTime <= 0) {     //当倒计时小于等于0时清除定时器
-            window.clearInterval(this.cloak)
-            this.content = '重新发送验证码';
-            this.totalTime = 60;
-            this.canClick = true  //这里重新开启
-          }
-          
-        },1000)
+    if (!this.canClick) return // 改动的是这两行代码,限制点击
+    this.canClick = false
+    this.content = this.totalTime + 's后重新发送' // 这里解决60秒不见了的问题
+    this.cloak = setInterval(() => {
+      this.totalTime--
+      if (this.totalTime > 0) {
+        this.content = this.totalTime + 's后重新发送'
+      }
+      if (this.totalTime <= 0) { // 当倒计时小于等于0时清除定时器
+        window.clearInterval(this.cloak)
+        this.content = '重新发送验证码'
+        this.totalTime = 60
+        this.canClick = true // 这里重新开启
+      }
+    }, 1000)
 
-       let res = await getMsgCode(this.registryForm.mobile)
-       this.registryForm.verifiykey = res;
+    let res = await getMsgCode(this.registryForm.mobile)
+    this.registryForm.verifiykey = res
   }
 
-  private async goRegistry () {
-
+  private async goRegistry() {
     let res = await registryData(this.registryForm)
 
     if (!res) {
-        Message({
-        message: "注册失败",
-          type: 'error',
-          duration: 2 * 1000
-        })
-      } else {
-        Message({
-          message: "注册成功",
-          type: 'info',
-          duration: 2 * 1000
-        })
+      Message({
+        message: '注册失败',
+        type: 'error',
+        duration: 2 * 1000
+      })
+    } else {
+      Message({
+        message: '注册成功',
+        type: 'info',
+        duration: 2 * 1000
+      })
 
-        setTimeout(() => {
-           this.isRegistry = false;
-        },2000)
-      }
-    
+      setTimeout(() => {
+        this.isRegistry = false
+      }, 2000)
+    }
   }
   private showPwd() {
     if (this.passwordType === 'password') {
@@ -312,15 +333,15 @@ export default class extends Vue {
   }
 
   private handleLogin() {
-    localStorage.setItem('username',this.loginForm.usernames);
-    localStorage.setItem('password',this.loginForm.password);
+    localStorage.setItem('username', this.loginForm.usernames)
+    localStorage.setItem('password', this.loginForm.password)
     if (this.loginForm.usernames === '' || this.loginForm.password === '') {
-       Message({
-        message: "账号或密码不能为空",
+      Message({
+        message: '账号或密码不能为空',
         type: 'error',
         duration: 2 * 1000
       })
-      return;
+      return
     }
     (this.$refs.loginForm as ElForm).validate(async(valid: boolean) => {
       if (valid) {
@@ -372,7 +393,6 @@ export default class extends Vue {
 <style lang="scss">
 // References: https://www.zhangxinxu.com/wordpress/2018/01/css-caret-color-first-line/
 
-
 .login-container {
   .el-input {
     display: inline-block;
@@ -388,7 +408,7 @@ export default class extends Vue {
       &:-webkit-autofill {
         box-shadow: 0 0 0px 1000px $loginBg inset !important;
         -webkit-text-fill-color: #fff !important;
-      } 
+      }
     }
   }
   .el-form-item:nth-child(2) {
@@ -425,8 +445,7 @@ export default class extends Vue {
   .loginbox {
     width:100%;
     height: 100%;
-    
-  
+
     .rights {
       width:450px;
       height: 435px;
@@ -480,7 +499,7 @@ export default class extends Vue {
 
         .getCode {
           margin-left:10px;
-          cursor:pointer;      
+          cursor:pointer;
           outline: none;
           border: 0;
           background-color: transparent;
@@ -499,8 +518,6 @@ export default class extends Vue {
       cursor: pointer;
     }
   }
-
-  
 
   .svg-container {
     padding: 6px 5px 6px 15px;

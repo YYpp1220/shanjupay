@@ -13,4 +13,3 @@ export const getTenantId = () => Cookies.get(id)
 export const setToken = (token: string) => Cookies.set(tokenKey, token)
 export const setTenantId = (tenantId:number) => Cookies.set(id, String(tenantId))
 export const removeToken = () => Cookies.remove(tokenKey)
- 

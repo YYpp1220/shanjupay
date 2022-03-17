@@ -4,7 +4,6 @@
       id="breadcrumb-container"
       class="breadcrumb-container"
     />
- 
   </div>
 </template>
 
@@ -14,7 +13,6 @@ import { AppModule } from '@/store/modules/app'
 import { UserModule } from '@/store/modules/user'
 import Breadcrumb from '@/components/Breadcrumb/index.vue'
 
-
 @Component({
   name: 'Navbar',
   components: {
@@ -22,9 +20,6 @@ import Breadcrumb from '@/components/Breadcrumb/index.vue'
   }
 })
 export default class extends Vue {
- 
-
-
 
 }
 </script>

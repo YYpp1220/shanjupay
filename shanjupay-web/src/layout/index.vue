@@ -1,39 +1,53 @@
 <template>
   <div class="box-container">
     <div class="box">
-        <div class="logos">
-          <img src="../../public/img/logo/logo.png" alt="" class="imgs" @click="goHome">
-        </div>
-        <sidebar  class="sidebar-container"/>
-         <div class="right-menu">
-           <img src="../../public/img/head.png" alt="" >
-           <el-dropdown @command="handleCommand">
-            <span class="el-dropdown-link">
-              {{username}}<i class="el-icon-arrow-down el-icon--right"></i>
-            </span>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="a">账户中心</el-dropdown-item>
-              <el-dropdown-item command="b">切换用户</el-dropdown-item>
-              <el-dropdown-item command="c">退出</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </div>
+      <div class="logos">
+        <img
+          src="../../public/img/logo/logo.png"
+          alt=""
+          class="imgs"
+          @click="goHome"
+        >
+      </div>
+      <sidebar class="sidebar-container" />
+      <div class="right-menu">
+        <img
+          src="../../public/img/head.png"
+          alt=""
+        >
+        <el-dropdown @command="handleCommand">
+          <span class="el-dropdown-link">
+            {{ username }}<i class="el-icon-arrow-down el-icon--right" />
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command="a">
+              账户中心
+            </el-dropdown-item>
+            <el-dropdown-item command="b">
+              切换用户
+            </el-dropdown-item>
+            <el-dropdown-item command="c">
+              退出
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
     </div>
     <div
-    :class="classObj"
-    class="app-wrapper"
-  >
-    <div
-      v-if="classObj.mobile && sidebar.opened"
-      class="drawer-bg"
-      @click="handleClickOutside"
-    />
-    
-    <div class="main-container">
-      <navbar />
-      <app-main />
+      :class="classObj"
+      class="app-wrapper"
+    >
+      <div
+        v-if="classObj.mobile && sidebar.opened"
+        class="drawer-bg"
+        @click="handleClickOutside"
+      />
+
+      <div class="main-container">
+        <navbar />
+        <app-main />
+      </div>
     </div>
-  </div>
   </div>
 </template>
 
@@ -57,7 +71,7 @@ import Hamburger from '@/components/Hamburger/index.vue'
 })
 export default class extends mixins(ResizeMixin) {
   private username:string = ''
-  created () {
+  created() {
     this.username = localStorage.getItem('username')!
   }
   get classObj() {
@@ -72,8 +86,7 @@ export default class extends mixins(ResizeMixin) {
     return UserModule.avatar
   }
   private async logout() {
-    
-    
+
   }
   private toggleSideBar() {
     AppModule.ToggleSideBar(false)
@@ -81,21 +94,20 @@ export default class extends mixins(ResizeMixin) {
   private handleClickOutside() {
     AppModule.CloseSideBar(false)
   }
-    get sidebar() {
+  get sidebar() {
     return AppModule.sidebar
   }
 
-  private goHome () {
+  private goHome() {
     this.$router.push('/')
   }
-  private async handleCommand (value:any) {
-
+  private async handleCommand(value:any) {
     if (value === 'c') {
       await UserModule.LogOut()
-       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+      this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     } else if (value === 'a') {
       this.$router.push('/finance/index')
-    } else{
+    } else {
       console.log(1)
     }
   }
@@ -138,7 +150,7 @@ export default class extends mixins(ResizeMixin) {
     }
   }
   .imgs {
-   
+
     margin-left: 50px;
     margin-top: 12px;
     float: left;
@@ -174,8 +186,6 @@ export default class extends mixins(ResizeMixin) {
   min-height: 100%;
   background-color: #f2f5fa;
 }
-
-
 
 .hideSidebar {
   .main-container {
@@ -233,7 +243,7 @@ export default class extends mixins(ResizeMixin) {
       background: rgba(0, 0, 0, .025)
     }
   }
-  
+
   .right-menu {
     white-space:nowrap;
     padding: 0 10px;
@@ -264,8 +274,7 @@ export default class extends mixins(ResizeMixin) {
         z-index: 2000;
       }
     }
-    
+
   }
 
-   
 </style>

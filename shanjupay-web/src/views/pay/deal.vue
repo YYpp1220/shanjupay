@@ -1,18 +1,16 @@
 <template>
   <div class="bill-container">
-      <h3>应用交易总览</h3>
-         <el-date-picker
-            v-model="value1"
-            type="daterange"
-            range-separator="~"
-            value-format="yyyy-MM-dd"
-            @change="changes"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期">
-        </el-date-picker>
-    <div>
-
-    </div>
+    <h3>应用交易总览</h3>
+    <el-date-picker
+      v-model="value1"
+      type="daterange"
+      range-separator="~"
+      value-format="yyyy-MM-dd"
+      start-placeholder="开始日期"
+      end-placeholder="结束日期"
+      @change="changes"
+    />
+    <div />
     <p>汇总数据</p>
     <el-table
       :data="list"
@@ -22,73 +20,104 @@
       stripe
       style="width: 100%"
     >
-      <el-table-column align="center" label="总交易额">
+      <el-table-column
+        align="center"
+        label="总交易额"
+      >
         <template slot-scope="scope">
-          <span>{{scope.row.totalAmount}}</span>
+          <span>{{ scope.row.totalAmount }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="退款金额">
+      <el-table-column
+        align="center"
+        label="退款金额"
+      >
         <template slot-scope="scope">
-          <span>{{scope.row.refundAmount}}</span>
+          <span>{{ scope.row.refundAmount }}</span>
         </template>
       </el-table-column>
 
- 
-      <el-table-column align="center" label="成功交易金额">
+      <el-table-column
+        align="center"
+        label="成功交易金额"
+      >
         <template slot-scope="scope">
-          <span>{{scope.row.successAmount}}</span>
+          <span>{{ scope.row.successAmount }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="手续费">
+      <el-table-column
+        align="center"
+        label="手续费"
+      >
         <template slot-scope="scope">
-          <span>{{scope.row.fee}}</span>
+          <span>{{ scope.row.fee }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="净收入">
+      <el-table-column
+        align="center"
+        label="净收入"
+      >
         <template slot-scope="scope">
-          <span>{{scope.row.incomeAmount}}</span>
+          <span>{{ scope.row.incomeAmount }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="发起笔数">
+      <el-table-column
+        align="center"
+        label="发起笔数"
+      >
         <template slot-scope="scope">
-          <span>{{scope.row.requestNumber}}</span>
+          <span>{{ scope.row.requestNumber }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="退款笔数">
+      <el-table-column
+        align="center"
+        label="退款笔数"
+      >
         <template slot-scope="scope">
-          <span>{{scope.row.refundNumber}}</span>
+          <span>{{ scope.row.refundNumber }}</span>
         </template>
       </el-table-column>
 
+      <el-table-column
+        align="center"
+        label="成功笔数"
+      >
+        <template slot-scope="scope">
+          <span>{{ scope.row.successNumber }}</span>
+        </template>
+      </el-table-column>
 
-        <el-table-column align="center" label="成功笔数">
-            <template slot-scope="scope">
-                <span>{{scope.row.successNumber}}</span>
-            </template>
-        </el-table-column>
+      <el-table-column
+        align="center"
+        label="转化率"
+      >
+        <template slot-scope="scope">
+          <span>{{ scope.row.conversion }}</span>
+        </template>
+      </el-table-column>
 
-        <el-table-column align="center" label="转化率">
-            <template slot-scope="scope">
-                <span>{{scope.row.conversion}}</span>
-            </template>
-        </el-table-column>
+      <el-table-column
+        align="center"
+        label="平均订单金额"
+      >
+        <template slot-scope="scope">
+          <span>{{ scope.row.avgAmount }}</span>
+        </template>
+      </el-table-column>
 
-        <el-table-column align="center" label="平均订单金额">
-            <template slot-scope="scope">
-                <span>{{scope.row.avgAmount}}</span>
-            </template>
-        </el-table-column>
-
-        <el-table-column align="center" label="平均费率">
-            <template slot-scope="scope">
-                <span>{{scope.row.avgRate}}</span>
-            </template>
-        </el-table-column>
+      <el-table-column
+        align="center"
+        label="平均费率"
+      >
+        <template slot-scope="scope">
+          <span>{{ scope.row.avgRate }}</span>
+        </template>
+      </el-table-column>
     </el-table>
     <p>各渠道交易数据</p>
     <el-table
@@ -99,79 +128,113 @@
       stripe
       style="width: 100%"
     >
-    <el-table-column align="center" label="渠道名称">
+      <el-table-column
+        align="center"
+        label="渠道名称"
+      >
         <template slot-scope="scope">
-          <span>{{scope.row.channelName}}</span>
+          <span>{{ scope.row.channelName }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="总交易额">
+      <el-table-column
+        align="center"
+        label="总交易额"
+      >
         <template slot-scope="scope">
-          <span>{{scope.row.totalAmount}}</span>
+          <span>{{ scope.row.totalAmount }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="退款金额">
+      <el-table-column
+        align="center"
+        label="退款金额"
+      >
         <template slot-scope="scope">
-          <span>{{scope.row.refundAmount}}</span>
+          <span>{{ scope.row.refundAmount }}</span>
         </template>
       </el-table-column>
 
- 
-      <el-table-column align="center" label="成功交易金额">
+      <el-table-column
+        align="center"
+        label="成功交易金额"
+      >
         <template slot-scope="scope">
-          <span>{{scope.row.successAmount}}</span>
+          <span>{{ scope.row.successAmount }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="手续费">
+      <el-table-column
+        align="center"
+        label="手续费"
+      >
         <template slot-scope="scope">
-          <span>{{scope.row.fee}}</span>
+          <span>{{ scope.row.fee }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="净收入">
+      <el-table-column
+        align="center"
+        label="净收入"
+      >
         <template slot-scope="scope">
-          <span>{{scope.row.incomeAmount}}</span>
+          <span>{{ scope.row.incomeAmount }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="发起笔数">
+      <el-table-column
+        align="center"
+        label="发起笔数"
+      >
         <template slot-scope="scope">
-          <span>{{scope.row.requestNumber}}</span>
+          <span>{{ scope.row.requestNumber }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="退款笔数">
+      <el-table-column
+        align="center"
+        label="退款笔数"
+      >
         <template slot-scope="scope">
-          <span>{{scope.row.refundNumber}}</span>
+          <span>{{ scope.row.refundNumber }}</span>
         </template>
       </el-table-column>
 
+      <el-table-column
+        align="center"
+        label="成功笔数"
+      >
+        <template slot-scope="scope">
+          <span>{{ scope.row.successNumber }}</span>
+        </template>
+      </el-table-column>
 
-        <el-table-column align="center" label="成功笔数">
-            <template slot-scope="scope">
-                <span>{{scope.row.successNumber}}</span>
-            </template>
-        </el-table-column>
+      <el-table-column
+        align="center"
+        label="转化率"
+      >
+        <template slot-scope="scope">
+          <span>{{ scope.row.conversion }}</span>
+        </template>
+      </el-table-column>
 
-        <el-table-column align="center" label="转化率">
-            <template slot-scope="scope">
-                <span>{{scope.row.conversion}}</span>
-            </template>
-        </el-table-column>
+      <el-table-column
+        align="center"
+        label="平均订单金额"
+      >
+        <template slot-scope="scope">
+          <span>{{ scope.row.avgAmount }}</span>
+        </template>
+      </el-table-column>
 
-        <el-table-column align="center" label="平均订单金额">
-            <template slot-scope="scope">
-                <span>{{scope.row.avgAmount}}</span>
-            </template>
-        </el-table-column>
-
-        <el-table-column align="center" label="平均费率">
-            <template slot-scope="scope">
-                <span>{{scope.row.avgRate}}</span>
-            </template>
-        </el-table-column>
+      <el-table-column
+        align="center"
+        label="平均费率"
+      >
+        <template slot-scope="scope">
+          <span>{{ scope.row.avgRate }}</span>
+        </template>
+      </el-table-column>
     </el-table>
     <p>各应用交易数据</p>
     <el-table
@@ -182,81 +245,114 @@
       stripe
       style="width: 100%"
     >
-    <el-table-column align="center" label="应用名称">
+      <el-table-column
+        align="center"
+        label="应用名称"
+      >
         <template slot-scope="scope">
-          <span>{{scope.row.appName}}</span>
+          <span>{{ scope.row.appName }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="总交易额">
+      <el-table-column
+        align="center"
+        label="总交易额"
+      >
         <template slot-scope="scope">
-          <span>{{scope.row.totalAmount}}</span>
+          <span>{{ scope.row.totalAmount }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="退款金额">
+      <el-table-column
+        align="center"
+        label="退款金额"
+      >
         <template slot-scope="scope">
-          <span>{{scope.row.refundAmount}}</span>
+          <span>{{ scope.row.refundAmount }}</span>
         </template>
       </el-table-column>
 
- 
-      <el-table-column align="center" label="成功交易金额">
+      <el-table-column
+        align="center"
+        label="成功交易金额"
+      >
         <template slot-scope="scope">
-          <span>{{scope.row.successAmount}}</span>
+          <span>{{ scope.row.successAmount }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="手续费">
+      <el-table-column
+        align="center"
+        label="手续费"
+      >
         <template slot-scope="scope">
-          <span>{{scope.row.fee}}</span>
+          <span>{{ scope.row.fee }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="净收入">
+      <el-table-column
+        align="center"
+        label="净收入"
+      >
         <template slot-scope="scope">
-          <span>{{scope.row.incomeAmount}}</span>
+          <span>{{ scope.row.incomeAmount }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="发起笔数">
+      <el-table-column
+        align="center"
+        label="发起笔数"
+      >
         <template slot-scope="scope">
-          <span>{{scope.row.requestNumber}}</span>
+          <span>{{ scope.row.requestNumber }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="退款笔数">
+      <el-table-column
+        align="center"
+        label="退款笔数"
+      >
         <template slot-scope="scope">
-          <span>{{scope.row.refundNumber}}</span>
+          <span>{{ scope.row.refundNumber }}</span>
         </template>
       </el-table-column>
 
+      <el-table-column
+        align="center"
+        label="成功笔数"
+      >
+        <template slot-scope="scope">
+          <span>{{ scope.row.successNumber }}</span>
+        </template>
+      </el-table-column>
 
-        <el-table-column align="center" label="成功笔数">
-            <template slot-scope="scope">
-                <span>{{scope.row.successNumber}}</span>
-            </template>
-        </el-table-column>
+      <el-table-column
+        align="center"
+        label="转化率"
+      >
+        <template slot-scope="scope">
+          <span>{{ scope.row.conversion }}</span>
+        </template>
+      </el-table-column>
 
-        <el-table-column align="center" label="转化率">
-            <template slot-scope="scope">
-                <span>{{scope.row.conversion}}</span>
-            </template>
-        </el-table-column>
+      <el-table-column
+        align="center"
+        label="平均订单金额"
+      >
+        <template slot-scope="scope">
+          <span>{{ scope.row.avgAmount }}</span>
+        </template>
+      </el-table-column>
 
-        <el-table-column align="center" label="平均订单金额">
-            <template slot-scope="scope">
-                <span>{{scope.row.avgAmount}}</span>
-            </template>
-        </el-table-column>
-
-        <el-table-column align="center" label="平均费率">
-            <template slot-scope="scope">
-                <span>{{scope.row.avgRate}}</span>
-            </template>
-        </el-table-column>
+      <el-table-column
+        align="center"
+        label="平均费率"
+      >
+        <template slot-scope="scope">
+          <span>{{ scope.row.avgRate }}</span>
+        </template>
+      </el-table-column>
     </el-table>
-
   </div>
 </template>
 
@@ -273,42 +369,38 @@ import { getDealCollect, getAllDealFromAppType, getAllDealFromChannel } from '@/
   name: 'bill'
 })
 export default class extends Vue {
-
     private list = []
     private typeList = []
     private channelList = []
     private form = {
-        endTime:'',
-        merchantId: 0,
-        startTime:''
+      endTime: '',
+      merchantId: 0,
+      startTime: ''
     }
     private value1:any[] = []
-    created () {
-        this.getList()
-        this.getClassList()
+    created() {
+      this.getList()
+      this.getClassList()
     }
 
-    private async getList () {
-        this.list = []
-        this.form.merchantId = Number(UserModule.tenantId)
-        let res = await getDealCollect(this.form)
-        this.list.push(res)
+    private async getList() {
+      this.list = []
+      this.form.merchantId = Number(UserModule.tenantId)
+      let res = await getDealCollect(this.form)
+      this.list.push(res)
 
-        this.value1 = []
-        
+      this.value1 = []
     }
 
-    private  async getClassList () {
-        this.typeList = await getAllDealFromAppType()
-        this.channelList = await getAllDealFromChannel()
+    private async getClassList() {
+      this.typeList = await getAllDealFromAppType()
+      this.channelList = await getAllDealFromChannel()
     }
 
-    private changes () {
-        this.form.endTime = this.value1[1]
-        this.form.startTime = this.value1[0]
-        this.getList()
-
-
+    private changes() {
+      this.form.endTime = this.value1[1]
+      this.form.startTime = this.value1[0]
+      this.getList()
     }
 }
 </script>
