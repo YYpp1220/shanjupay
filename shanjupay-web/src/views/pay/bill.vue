@@ -1,64 +1,85 @@
 <template>
   <div class="bill-container">
-      <h3>应用财务对账</h3>
+    <h3>应用财务对账</h3>
     <el-table
       v-loading="listLoading"
       :data="list"
       fit
       highlight-current-row
-      :header-cell-style="{color:'#5373e0',background:'#f3f6fb'}"
+      :header-cell-style="{color: '#5373e0',background: '#f3f6fb'}"
       style="width: 100%"
     >
-      <el-table-column align="center" label="日期">
+      <el-table-column
+        align="center"
+        label="日期"
+      >
         <template slot-scope="scope">
-          <span></span>
+          <span />
         </template>
       </el-table-column>
-
-      <el-table-column align="center" label="收入(元)">
-        <template slot-scope="scope">
-          <span></span>
-        </template>
-      </el-table-column>
-
- 
-      <el-table-column align="center" label="笔数">
-        <template slot-scope="scope">
-          <span></span>
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" label="支出(元)">
-        <template slot-scope="scope">
-          <span></span>
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" label="笔数">
-        <template slot-scope="scope">
-          <span></span>
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" label="应结金额">
-        <template slot-scope="scope">
-          <span></span>
-        </template>
-      </el-table-column>
-
 
       <el-table-column
-      fixed="right"
-      label="操作"
-      width="100"
-      align="center">
-      <template slot-scope="scope">
-        <el-button @click="updateClick(scope.row)" type="text" size="small">查看明细</el-button>
-      </template>
-    </el-table-column>
-    </el-table>
+        align="center"
+        label="收入(元)"
+      >
+        <template slot-scope="scope">
+          <span />
+        </template>
+      </el-table-column>
 
-     
+      <el-table-column
+        align="center"
+        label="笔数"
+      >
+        <template slot-scope="scope">
+          <span />
+        </template>
+      </el-table-column>
+
+      <el-table-column
+        align="center"
+        label="支出(元)"
+      >
+        <template slot-scope="scope">
+          <span />
+        </template>
+      </el-table-column>
+
+      <el-table-column
+        align="center"
+        label="笔数"
+      >
+        <template slot-scope="scope">
+          <span />
+        </template>
+      </el-table-column>
+
+      <el-table-column
+        align="center"
+        label="应结金额"
+      >
+        <template slot-scope="scope">
+          <span />
+        </template>
+      </el-table-column>
+
+      <el-table-column
+        fixed="right"
+        label="操作"
+        width="100"
+        align="center"
+      >
+        <template slot-scope="scope">
+          <el-button
+            type="text"
+            size="small"
+            @click="updateClick(scope.row)"
+          >
+            查看明细
+          </el-button>
+        </template>
+      </el-table-column>
+    </el-table>
 
     <!-- <pagination
       v-show="total>0"
@@ -82,7 +103,7 @@ import { UserModule } from '@/store/modules/user'
   name: 'bill'
 })
 export default class extends Vue {
-  created () {
+  created() {
     console.log(UserModule.tenantId)
   }
 }
