@@ -12,7 +12,6 @@
           :index="resolvePath(theOnlyOneChild.path)"
           :class="{'submenu-title-noDropdown': isFirstLevel}"
         >
-      
           <span
             v-if="theOnlyOneChild.meta.title"
             slot="title"
@@ -26,7 +25,6 @@
       popper-append-to-body
     >
       <template slot="title">
-  
         <span
           v-if="item.meta && item.meta.title"
           slot="title"
@@ -46,7 +44,6 @@
     </el-submenu>
   </div>
 </template>
-
 
 <script lang="ts">
 import path from 'path'
@@ -135,7 +132,7 @@ export default class extends Vue {
   background: white !important;
 
 }
- 
+
 .full-mode {
   width: 165px;
    background: white !important;

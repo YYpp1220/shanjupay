@@ -22,7 +22,7 @@ class User extends VuexModule implements IUserState {
   public roles: string[] = []
   public userId = 0
   public tenantId = getTenantId() || 0
-  
+
   public userName = ''
   public mobile = ''
   public menus: string[] = []
@@ -191,7 +191,7 @@ class User extends VuexModule implements IUserState {
     params.append('username', JSON.stringify(username))
     let arr = []
 
-    const res = await login(params) 
+    const res = await login(params)
     const param = new URLSearchParams()
     param.append('token', res.access_token)
     const responses = await checkToken(param)
