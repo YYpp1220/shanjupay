@@ -33,13 +33,13 @@ public class AppPlatformChannelServiceImpl extends ServiceImpl<AppPlatformChanne
      * @param appId                应用程序id
      * @param platformChannelCodes 平台服务类型列表
      */
-    public void bindPlatformChannelForApp (String appId, String platformChannelCodes) {
+    public void bindPlatformChannelForApp (String appId, String platformChannelCodes) throws BusinessException {
         //根据appId和平台服务类型code查询app_platform_channel
         AppPlatformChannel appPlatformChannel = appPlatformChannelMapper.selectOne(new QueryWrapper<AppPlatformChannel>()
                 .lambda()
                 .eq(AppPlatformChannel::getAppId, appId)
                 .eq(AppPlatformChannel::getPlatformChannel, platformChannelCodes));
-        if (StringUtils.isEmpty(appPlatformChannel)) {
+        if (!StringUtils.isEmpty(appPlatformChannel)) {
             throw new BusinessException(CommonErrorCode.E_100104);
         }
         //如果没有绑定则绑定
@@ -50,5 +50,13 @@ public class AppPlatformChannelServiceImpl extends ServiceImpl<AppPlatformChanne
         if (appPlatformChannelNum <= 0) {
             throw new BusinessException(CommonErrorCode.E_100116);
         }
+    }
+
+    public int queryAppBindPlatformChannel(String appId, String platformChannel) {
+        Integer count = appPlatformChannelMapper.selectCount(new QueryWrapper<AppPlatformChannel>()
+                .lambda()
+                .eq(AppPlatformChannel::getAppId, appId)
+                .eq(AppPlatformChannel::getPlatformChannel, platformChannel));
+        return count > 0 ? 1 : 0;
     }
 }

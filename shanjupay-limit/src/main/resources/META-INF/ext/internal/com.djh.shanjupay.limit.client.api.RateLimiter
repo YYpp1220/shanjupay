@@ -1,0 +1,3 @@
+default=com.djh.shanjupay.limit.client.internal.redis.TokenBucketRateLimiter
+fixedWindow=com.djh.shanjupay.limit.client.internal.redis.FixedWindowRateLimiter
+slidingWindow=com.djh.shanjupay.limit.client.internal.redis.SlidingWindowRateLimiter

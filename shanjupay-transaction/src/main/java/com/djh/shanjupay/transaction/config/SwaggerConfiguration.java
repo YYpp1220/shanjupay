@@ -19,8 +19,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @date 2021/04/20
  */
 @Configuration
-@ConditionalOnProperty(prefix = "swagger",value = {"enable"},havingValue = "true")
 @EnableSwagger2
+@ConditionalOnProperty(prefix = "swagger",value = {"enable"},havingValue = "true")
 public class SwaggerConfiguration {
 
 	@Bean
@@ -42,7 +42,7 @@ public class SwaggerConfiguration {
 	 * @methodName: buildApiInfo
 	 */
 	private ApiInfo buildApiInfo() {
-		Contact contact = new Contact("刁嘉辉","","");
+		Contact contact = new Contact("开发者","","");
 		return new ApiInfoBuilder()
 				.title("聚宇交易服务API文档")
 				.description("包含商户交易相关api")

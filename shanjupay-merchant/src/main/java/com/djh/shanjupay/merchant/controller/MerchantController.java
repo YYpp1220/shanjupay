@@ -6,6 +6,7 @@ import com.djh.shanjupay.common.enumerate.CommonErrorCode;
 import com.djh.shanjupay.common.exception.BusinessException;
 import com.djh.shanjupay.common.util.BuilderUtils;
 import com.djh.shanjupay.common.util.SecurityUtil;
+import com.djh.shanjupay.limit.client.annotation.Limit;
 import com.djh.shanjupay.merchant.convert.MerchantConvert;
 import com.djh.shanjupay.merchant.convert.MerchantDetailConvert;
 import com.djh.shanjupay.merchant.dto.MerchantDto;
@@ -77,6 +78,7 @@ public class MerchantController {
     @ApiOperation("获取手机验证码")
     @ApiImplicitParam(name = "phone", value = "手机号", required = true, dataType = "String", paramType = "query")
     @GetMapping("/getSmsCode")
+    @Limit(period = 60, count = 5, fallbackImpl = "fixedWindow")
     public ResponseEntity<RestResponse<VerificationInfo>> getSmsCode (@RequestParam("phone") String phone) {
         log.info("获取短信验证码开始，手机号{}", phone);
         RestResponse<VerificationInfo> restResponse = merchantService.getSmsCode(phone);
@@ -92,6 +94,7 @@ public class MerchantController {
     @ApiOperation("注册商户")
     @ApiImplicitParam(name = "merchantRegisterVO", value = "注册信息", required = true, dataType = "MerchantRegisterVO", paramType = "body")
     @PostMapping("/register")
+    @Limit(period = 60, count = 5, fallbackImpl = "fixedWindow")
     public ResponseEntity<RestResponse<MerchantRegisterVO>> saveMerchant (@RequestBody @Valid MerchantRegisterVO merchantRegisterVO) {
         if (StringUtils.isEmpty(merchantRegisterVO)) {
             throw new BusinessException(CommonErrorCode.E_100108);

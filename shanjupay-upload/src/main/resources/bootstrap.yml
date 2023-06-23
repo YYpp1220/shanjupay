@@ -2,13 +2,13 @@ spring:
   cloud:
     nacos:
       config:
-        server-addr: 127.0.0.1:8848
-#        server-addr: 192.168.203.128:8848
+#        server-addr: 127.0.0.1:8848
+        server-addr: 192.168.203.128:8848
         file-extension: yaml
         # 公司nacos开发环境namespace
-        namespace: 65a3eb11-8431-4479-a13a-87c938ef97ee
+#        namespace: 65a3eb11-8431-4479-a13a-87c938ef97ee
         # 本机nacos开发环境
-#        namespace: 67402c73-2d27-4a13-84b8-8ad1d94836b1
+        namespace: 67402c73-2d27-4a13-84b8-8ad1d94836b1
         group: SHANJUPAY_GROUP
         extension-configs[0]:
           -
@@ -24,4 +24,12 @@ spring:
           -
             refresh: true
             data-id: spring-boot-mybatis-plus.yaml
+            group: COMMON_GROUP
+        extension-configs[3]:
+          - refresh: true
+            data-id: spring-boot-starter-redis.yaml
+            group: COMMON_GROUP
+        extension-configs[4]:
+          - refresh: true
+            data-id: spring-boot-starter-jackson.yaml
             group: COMMON_GROUP

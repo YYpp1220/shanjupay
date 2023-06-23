@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.djh.shanjupay.transaction.mapper.PlatformChannelMapper">
+    <resultMap type="com.djh.shanjupay.transaction.entity.PlatformChannel" id="PlatformChannelMap">
+        <result property="id" column="ID" jdbcType="INTEGER"/>
+        <result property="channelName" column="CHANNEL_NAME" jdbcType="VARCHAR"/>
+        <result property="channelCode" column="CHANNEL_CODE" jdbcType="VARCHAR"/>
+    </resultMap>
 
+    <sql id="Base_Column_List">
+        ID, CHANNEL_NAME, CHANNEL_CODE
+    </sql>
 </mapper>

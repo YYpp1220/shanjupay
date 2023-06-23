@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.djh.shanjupay.transaction.mapper.PayChannelMapper">
+    <resultMap type="com.djh.shanjupay.transaction.entity.PayChannel" id="PayChannelMap">
+        <result property="id" column="ID" jdbcType="INTEGER"/>
+        <result property="channelName" column="CHANNEL_NAME" jdbcType="VARCHAR"/>
+        <result property="channelCode" column="CHANNEL_CODE" jdbcType="VARCHAR"/>
+    </resultMap>
 
+    <select id="selectPayChannelByPlatformChannel" parameterType="java.lang.String" resultMap="PayChannelMap">
+        select
+        pay.*
+        from
+        shanjupay_transaction.pay_channel pay, shanjupay_transaction.platform_pay_channel pac
+        where
+        pay.CHANNEL_CODE = pac.PAY_CHANNEL
+        and
+        pac.PLATFORM_CHANNEL = #{platformChannelCode};
+    </select>
 </mapper>

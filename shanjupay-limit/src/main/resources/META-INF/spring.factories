@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.djh.shanjupay.limit.client.internal.redis.LimitRedisConfig,\
+  com.djh.shanjupay.limit.starter.LimitAutoConfiguration
+
+

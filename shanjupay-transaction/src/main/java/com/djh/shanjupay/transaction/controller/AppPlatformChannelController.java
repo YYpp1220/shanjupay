@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,11 +46,21 @@ public class AppPlatformChannelController {
         if (StringUtils.isEmpty(appId) && StringUtils.isEmpty(platformChannelCodes)) {
             throw new BusinessException(CommonErrorCode.E_100101);
         }
-        try {
-            appPlatformChannelService.bindPlatformChannelForApp(appId, platformChannelCodes);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        appPlatformChannelService.bindPlatformChannelForApp(appId, platformChannelCodes);
         return ResponseEntity.ok(RestResponse.success(true));
+    }
+
+    @ApiOperation("查询应用是否绑定了某个服务类型")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "appId", value = "应用appId", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "platformChannel", value = "服务类型", dataType = "String", paramType = "query")
+    })
+    @GetMapping("/platformChannels")
+    public ResponseEntity<RestResponse<Integer>> queryAppBindPlatformChannel(@RequestParam(value = "appId") String appId, @RequestParam(value = "platformChannel", required = false) String platformChannel) {
+        if (StringUtils.isEmpty(appId) && StringUtils.isEmpty(platformChannel)) {
+            throw new BusinessException(CommonErrorCode.E_100101);
+        }
+        int count = appPlatformChannelService.queryAppBindPlatformChannel(appId, platformChannel);
+        return ResponseEntity.ok(RestResponse.success(count));
     }
 }

@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.djh.shanjupay.common.domain.RestResponse;
 import com.djh.shanjupay.common.enumerate.CommonErrorCode;
 import com.djh.shanjupay.common.exception.BusinessException;
-import com.djh.shanjupay.common.interfaces.limit.Limit;
 import com.djh.shanjupay.merchant.convert.MerchantConvert;
 import com.djh.shanjupay.merchant.dto.MerchantDto;
 import com.djh.shanjupay.merchant.entity.Merchant;
@@ -62,7 +61,6 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant> {
      * @param phone 电话
      * @return {@link RestResponse<String>}
      */
-    @Limit
     public RestResponse<VerificationInfo> getSmsCode(String phone) throws BusinessException {
         if (StringUtils.isEmpty(phone)) {
             throw new BusinessException(CommonErrorCode.E_100112);

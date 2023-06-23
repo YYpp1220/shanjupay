@@ -57,7 +57,7 @@ public class LogAspect {
         String nameCn = "";
         if (name.contains("list") || name.contains("query")) {
             nameCn = "查询";
-        } else if (name.contains("save")) {
+        } else if (name.contains("save") || name.contains("create")) {
             nameCn = "新增";
         } else if (name.contains("delete")) {
             nameCn = "删除";

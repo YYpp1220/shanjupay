@@ -2,6 +2,12 @@ package com.djh.shanjupay.common.exception;
 
 
 import com.djh.shanjupay.common.interfaces.error.ErrorCode;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 业务异常
@@ -9,6 +15,7 @@ import com.djh.shanjupay.common.interfaces.error.ErrorCode;
  * @author MrMyHui
  * @date 2021/03/26
  */
+@Slf4j
 public class BusinessException extends RuntimeException {
 
 	
@@ -68,5 +75,16 @@ public class BusinessException extends RuntimeException {
 	public void setErrorCode(ErrorCode errorCode) {
 		this.errorCode = errorCode;
 	}
-	
+
+	public static boolean paramVerificationEx(BindingResult result) {
+		if (result.hasErrors()) {
+			List<String> errorStrArr = result.getFieldErrors()
+					.stream()
+					.map(FieldError::getDefaultMessage)
+					.collect(Collectors.toList());
+			log.error(errorStrArr.get(0));
+			return true;
+		}
+		return false;
+	}
 }

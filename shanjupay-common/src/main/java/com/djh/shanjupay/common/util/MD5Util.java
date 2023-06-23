@@ -132,6 +132,9 @@ public class MD5Util {
         System.out.println(nihao);*/
         String content = "login_token_d95b6887-7224-4362-9cfb-02894b52fe1f";
 
+        String md5 = getMd5(content);
+        System.out.println(md5);
+
         String encptStr = encrypt(ShanjuPayConstant.KEY,content);
         System.out.println(encptStr);
 

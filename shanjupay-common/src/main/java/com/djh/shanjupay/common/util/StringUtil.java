@@ -61,7 +61,7 @@ public class StringUtil {
 	 * @return 是否为非空
 	 */
 	public static boolean isNotBlank(String str) {
-		return false == isBlank(str);
+		return !isBlank(str);
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class StringUtil {
 	 * @return 是否为非空
 	 */
 	public static boolean isNotEmpty(String str) {
-		return false == isEmpty(str);
+		return !isEmpty(str);
 	}
 
 
@@ -162,9 +162,7 @@ public class StringUtil {
 			return str;
 		}
 		StringBuilder sb = new StringBuilder(minLength);
-		for (int i = str.length(); i < minLength; i++) {
-			sb.append(padChar);
-		}
+		sb.append(String.valueOf(padChar).repeat(minLength - str.length()));
 		sb.append(str);
 		return sb.toString();
 	}
@@ -186,9 +184,7 @@ public class StringUtil {
 		}
 		StringBuilder sb = new StringBuilder(minLength);
 		sb.append(str);
-		for (int i = str.length(); i < minLength; i++) {
-			sb.append(padChar);
-		}
+		sb.append(String.valueOf(padChar).repeat(minLength - str.length()));
 		return sb.toString();
 	}
 
@@ -261,7 +257,7 @@ public class StringUtil {
 	 * @return
 	 */
 	public static Integer[] stringToIntegerArray(String[] str) {
-		Integer array[] = new Integer[str.length];
+		Integer[] array = new Integer[str.length];
 		for (int i = 0; i < str.length; i++) {
 			array[i] = Integer.parseInt(str[i]);
 		}
@@ -276,7 +272,7 @@ public class StringUtil {
 	 * @return
 	 */
 	public static Long[] stringTOLongArray(String[] str) {
-		Long array[] = new Long[str.length];
+		Long[] array = new Long[str.length];
 		for (int i = 0; i < str.length; i++) {
 			array[i] = Long.parseLong(str[i]);
 		}

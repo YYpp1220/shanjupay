@@ -50,6 +50,14 @@ public interface MapStruct<E, D, V> {
     D voToDto(V v);
 
     /**
+     * 签证官实体
+     *
+     * @param v v
+     * @return {@link E}
+     */
+    E voToEntity(V v);
+
+    /**
      * dto列表实体列表
      *
      * @param d d
